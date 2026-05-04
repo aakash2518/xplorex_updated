@@ -2,9 +2,10 @@ import type { Metadata, Viewport } from "next";
 import { Plus_Jakarta_Sans, Space_Grotesk, Caveat } from "next/font/google";
 import "./globals.css";
 import { Providers } from "@/components/Providers";
-import LeadPopup from "@/components/LeadPopup";
-import FloatingButtons from "@/components/FloatingButtons";
-import FlightController from "@/components/3d/FlightController";
+import dynamic from "next/dynamic";
+const LeadPopup = dynamic(() => import("@/components/LeadPopup"), { ssr: false });
+const FloatingButtons = dynamic(() => import("@/components/FloatingButtons"), { ssr: false });
+const FlightController = dynamic(() => import("@/components/3d/FlightController"), { ssr: false });
 
 // Load fonts via next/font — zero layout shift, self-hosted automatically
 const jakarta = Plus_Jakarta_Sans({
