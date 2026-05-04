@@ -3,9 +3,9 @@ const nextConfig = {
   reactStrictMode: true,
 
   // Tree-shake heavy packages
-  experimental: {
-    optimizePackageImports: ["framer-motion", "lucide-react", "@radix-ui/react-tooltip"],
-  },
+  // experimental: {
+  //   optimizePackageImports: ["framer-motion", "lucide-react", "@radix-ui/react-tooltip"],
+  // },
 
   // Image optimisation
   images: {

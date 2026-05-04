@@ -123,7 +123,7 @@ const MediaCard = ({ item }: { item: typeof mediaItems[0] }) => {
         rotate: [item.rotate, item.rotate + 1, item.rotate]
       }}
       transition={{
-        duration: 5 + Math.random() * 3,
+        duration: 6, // Fixed duration to prevent hydration mismatch
         repeat: Infinity,
         ease: "linear",
         delay: item.delay
