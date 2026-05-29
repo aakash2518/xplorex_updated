@@ -14,6 +14,7 @@ const links = [
   { label: "Group Tours",           href: "/group-tours" },
   { label: "Honeymoon Packages",    href: "/honeymoon-packages" },
   { label: "Why Us",                href: "/why-us" },
+  { label: "Blog",                  href: "/blog" },
   { label: "Contact",               href: "/contact" },
 ];
 
@@ -68,12 +69,12 @@ const Navbar = memo(function Navbar() {
           </Link>
 
           {/* Desktop nav */}
-          <nav className="hidden lg:flex items-center gap-0.5" aria-label="Main navigation">
+          <nav className="hidden lg:flex items-center gap-2 xl:gap-3" aria-label="Main navigation">
             {links.map((l) => (
               <Link
                 key={l.href}
                 href={l.href}
-                className={`relative px-3 xl:px-4 py-2 text-sm xl:text-[15px] font-semibold transition-colors rounded-lg hover:bg-primary/5 ${
+                className={`relative px-2.5 xl:px-3.5 py-2 text-[13px] xl:text-[15px] font-semibold transition-colors rounded-lg hover:bg-primary/5 whitespace-nowrap ${
                   pathname === l.href ? "text-accent" : "text-primary/80 hover:text-accent"
                 }`}
               >
@@ -88,11 +89,11 @@ const Navbar = memo(function Navbar() {
           {/* CTA + hamburger */}
           <div className="flex items-center gap-2 sm:gap-3">
             <a
-              href="tel:8447706518"
+              href="tel:XXXXXXXXXX"
               className="hidden sm:flex items-center gap-1.5 sm:gap-2 px-3 sm:px-4 py-2 sm:py-2.5 rounded-xl sm:rounded-2xl bg-accent text-white font-semibold shadow-press hover:translate-y-0.5 active:translate-y-1 transition-transform text-xs sm:text-sm"
             >
               <Phone className="w-3 sm:w-4 h-3 sm:h-4" />
-              <span className="hidden md:inline">8447706518</span>
+              <span className="hidden md:inline">XXXXXXXXXX</span>
               <span className="md:hidden">Call</span>
             </a>
 
@@ -138,11 +139,11 @@ const Navbar = memo(function Navbar() {
 
               <div className="mt-3 pt-3 border-t border-primary/10 sm:hidden">
                 <a
-                  href="tel:8447706518"
+                  href="tel:XXXXXXXXXX"
                   className="flex items-center gap-2 px-3 py-2.5 rounded-xl bg-accent text-white font-semibold text-sm"
                 >
                   <Phone className="w-4 h-4" />
-                  8447706518
+                  XXXXXXXXXX
                 </a>
               </div>
             </motion.nav>

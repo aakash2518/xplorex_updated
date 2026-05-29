@@ -53,7 +53,7 @@ const DestinationDetail = () => {
       `_Sent from xplorex.com_`,
     ].filter(Boolean).join("\n");
 
-    window.location.href = `https://wa.me/918447706518?text=${encodeURIComponent(msg)}`;
+    window.location.href = `https://wa.me/XXXXXXXXXXXX?text=${encodeURIComponent(msg)}`;
   };
 
   const others = destinations.filter((d) => d.slug !== dest.slug).slice(0, 4);
@@ -260,8 +260,8 @@ const DestinationDetail = () => {
 
             <div className="space-y-3">
               {[
-                { k: "Direct Call",    v: "+91 8447 706 518" },
-                { k: "Official Email", v: "info@xplorex.in" },
+                { k: "Direct Call",    v: "+91 XXXX XXX XXX" },
+                { k: "Official Email", v: "XXXXXXXXXX@XXXXXXXXXX.in" },
                 { k: "Support Hours",  v: "24 / 7 — Always Available" },
               ].map((c) => (
                 <div key={c.k} className="flex items-center gap-4 bg-white rounded-2xl p-4 sm:p-5 shadow-3d border border-primary/5">

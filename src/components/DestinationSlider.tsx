@@ -6,12 +6,16 @@ import { ChevronLeft, ChevronRight, ArrowRight } from "lucide-react";
 import Link from "next/link";
 import Image from "next/image";
 import { Destination } from "@/data/destinations";
+import { useDestinations } from "@/lib/useStore";
 
 interface Props {
   destinations: Destination[];
 }
 
-export default function DestinationSlider({ destinations }: Props) {
+export default function DestinationSlider({ destinations: propDestinations }: Props) {
+  const liveDestinations = useDestinations();
+  // Use live store data if available, fall back to prop
+  const destinations = liveDestinations.length > 0 ? liveDestinations : propDestinations;
   const [index, setIndex] = useState(0);
   const [direction, setDirection] = useState(0); // 1 for next, -1 for prev
   const active = destinations[index];
@@ -184,7 +188,7 @@ export default function DestinationSlider({ destinations }: Props) {
                     src={dest.img}
                     alt={dest.name}
                     fill
-                    className="object-cover group-hover:scale-110 transition-transform duration-[1.5s]"
+                    className="object-cover group-hover:scale-110 transition-transform duration-700"
                     sizes="(max-width: 1024px) 0vw, 250px"
                   />
                   <div className="absolute inset-0 bg-gradient-to-t from-black/95 via-black/20 to-transparent" />

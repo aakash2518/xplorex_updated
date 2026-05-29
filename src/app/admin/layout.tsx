@@ -18,8 +18,10 @@ export default function AdminLayout({ children }: { children: React.ReactNode })
 
   const handleLogin = (e: React.FormEvent) => {
     e.preventDefault();
-    // In a real app, this should be a server-side check
-    if (password === "admin123") {
+    // Check custom password first, fall back to default
+    const customPw = localStorage.getItem("xplorex_admin_password");
+    const correctPw = customPw || "admin123";
+    if (password === correctPw) {
       localStorage.setItem("admin_auth", "true");
       setIsAuthenticated(true);
       setError(false);

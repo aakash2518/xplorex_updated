@@ -16,8 +16,8 @@ const COMPANY = [
 ];
 
 const SOCIAL = [
-  { Icon: Instagram, href: "https://www.instagram.com/xplorex.in", label: "Instagram" },
-  { Icon: Facebook,  href: "https://www.facebook.com/share/18fWFUevja/?mibextid=wwXIfr", label: "Facebook" },
+  { Icon: Instagram, href: "https://www.instagram.com/XXXXXXXXXX", label: "Instagram" },
+  { Icon: Facebook,  href: "https://www.facebook.com/XXXXXXXXXX", label: "Facebook" },
 ];
 
 const Footer = () => (
@@ -93,23 +93,23 @@ const Footer = () => (
               <div className="w-8 h-8 rounded-lg bg-primary/5 grid place-items-center flex-shrink-0">
                 <Phone className="w-3.5 h-3.5 text-primary" />
               </div>
-              <a href="tel:8447706518" className="text-primary font-bold hover:text-accent transition-colors">
-                +91 8447 706 518
+              <a href="tel:XXXXXXXXXX" className="text-primary font-bold hover:text-accent transition-colors">
+                +91 XXXX XXX XXX
               </a>
             </li>
             <li className="flex items-center gap-3">
               <div className="w-8 h-8 rounded-lg bg-primary/5 grid place-items-center flex-shrink-0">
                 <Mail className="w-3.5 h-3.5 text-primary" />
               </div>
-              <a href="mailto:info@xplorex.in" className="text-primary font-bold hover:text-accent transition-colors">
-                info@xplorex.in
+              <a href="mailto:XXXXXXXXXX@XXXXXXXXXX.in" className="text-primary font-bold hover:text-accent transition-colors">
+                XXXXXXXXXX@XXXXXXXXXX.in
               </a>
             </li>
             <li className="flex items-center gap-3">
               <div className="w-8 h-8 rounded-lg bg-primary/5 grid place-items-center flex-shrink-0">
                 <MapPin className="w-3.5 h-3.5 text-primary" />
               </div>
-              <span className="text-primary/55 font-semibold">Faridabad, India · Global Service</span>
+              <span className="text-primary/55 font-semibold">XXXXXXXXXX, India · Global Service</span>
             </li>
           </ul>
         </div>

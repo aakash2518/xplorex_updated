@@ -6,14 +6,14 @@ import { useState, useMemo } from "react";
 import Link from "next/link";
 import Image from "next/image";
 import PackageCard from "@/components/ui/PackageCard";
-import { destinations } from "@/data/destinations";
+import { useDestinations } from "@/lib/useStore";
 
 const filters = ["All", "International", "India", "Group", "Honeymoon"];
 
 const Trips = () => {
   const [active, setActive] = useState("All");
+  const destinations = useDestinations();
   
-  // Memoize trips data to avoid recalculation on every render
   const trips = useMemo(() => 
     destinations.flatMap(d => 
       d.packages.map(p => ({
@@ -24,9 +24,8 @@ const Trips = () => {
         region: d.region,
         days: parseInt(p.duration) || 5
       }))
-    ).slice(0, 12), []);
+    ).slice(0, 12), [destinations]);
 
-  // Memoize filtered trips
   const visible = useMemo(() => 
     trips.filter((t) => {
       if (active === "All") return true;

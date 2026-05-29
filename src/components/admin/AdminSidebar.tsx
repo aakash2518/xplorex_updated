@@ -64,7 +64,14 @@ export default function AdminSidebar() {
 
       {/* Footer */}
       <div className="p-4 border-t border-primary/5">
-        <button className="flex items-center gap-3 px-4 py-3 w-full text-primary/60 hover:text-red-500 hover:bg-red-50 transition-colors rounded-xl font-semibold text-sm">
+        <button
+          type="button"
+          onClick={() => {
+            localStorage.removeItem("admin_auth");
+            window.location.href = "/admin";
+          }}
+          className="flex items-center gap-3 px-4 py-3 w-full text-primary/60 hover:text-red-500 hover:bg-red-50 transition-colors rounded-xl font-semibold text-sm"
+        >
           <LogOut className="w-5 h-5" />
           <span>Logout</span>
         </button>

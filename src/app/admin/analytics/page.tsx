@@ -25,7 +25,7 @@ export default function AdminAnalytics() {
         <div className="lg:col-span-2 bg-white rounded-3xl p-8 shadow-3d-sm border border-primary/5">
           <div className="flex items-center justify-between mb-8">
             <h2 className="font-bold text-primary text-lg">Visitor Traffic</h2>
-            <select className="bg-primary/5 border-none rounded-xl px-4 py-2 text-sm font-bold text-primary/60 focus:ring-0">
+            <select title="Select time range" aria-label="Time range" className="bg-primary/5 border-none rounded-xl px-4 py-2 text-sm font-bold text-primary/60 focus:ring-0">
               <option>Last 7 Days</option>
               <option>Last 30 Days</option>
             </select>
@@ -67,7 +67,10 @@ function SourceItem({ label, percentage, color }: any) {
         <span>{percentage}%</span>
       </div>
       <div className="h-2 w-full bg-primary/5 rounded-full overflow-hidden">
-        <div className={`h-full ${color}`} style={{ width: `${percentage}%` }} />
+        <div
+          className={`h-full ${color} transition-all duration-700`}
+          ref={(el) => { if (el) el.style.width = `${percentage}%`; }}
+        />
       </div>
     </div>
   );

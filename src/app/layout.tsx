@@ -2,10 +2,7 @@ import type { Metadata, Viewport } from "next";
 import { Plus_Jakarta_Sans, Space_Grotesk, Caveat } from "next/font/google";
 import "./globals.css";
 import { Providers } from "@/components/Providers";
-import dynamic from "next/dynamic";
-const LeadPopup = dynamic(() => import("@/components/LeadPopup"), { ssr: false });
-const FloatingButtons = dynamic(() => import("@/components/FloatingButtons"), { ssr: false });
-const FlightController = dynamic(() => import("@/components/3d/FlightController"), { ssr: false });
+import ClientDynamics from "@/components/ClientDynamics";
 
 // Load fonts via next/font — zero layout shift, self-hosted automatically
 const jakarta = Plus_Jakarta_Sans({
@@ -72,10 +69,8 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
       </head>
       <body className="bg-background min-h-screen antialiased">
         <Providers>
-          <FlightController />
+          <ClientDynamics />
           {children}
-          <LeadPopup />
-          <FloatingButtons />
         </Providers>
       </body>
     </html>

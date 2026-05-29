@@ -57,8 +57,8 @@ const Quote = () => {
 
             <div className="space-y-3">
               {[
-                { k: "Call",  v: "+91 8447 706 518" },
-                { k: "Email", v: "info@xplorex.in" },
+                { k: "Call",  v: "+91 XXXX XXX XXX" },
+                { k: "Email", v: "XXXXXXXXXX@XXXXXXXXXX.in" },
                 { k: "Hours", v: "24 / 7 — Always Available" },
               ].map((c) => (
                 <div key={c.k} className="flex items-center gap-4 bg-white rounded-2xl p-4 sm:p-5 shadow-3d border border-primary/5">

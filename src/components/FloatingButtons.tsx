@@ -3,13 +3,18 @@
 import { motion, AnimatePresence } from "framer-motion";
 import { Phone } from "lucide-react";
 import { useState } from "react";
+import { useSettings } from "@/lib/useStore";
 
-const PHONE = "8447706518";
-const WA_NUMBER = "918447706518";
+const DEFAULT_PHONE = "XXXXXXXXXX";
+const DEFAULT_WA = "XXXXXXXXXXXX";
 const WA_MSG = encodeURIComponent("Hi! I'm interested in a trip package. Please help me plan my trip. 🌍");
 
 export default function FloatingButtons() {
   const [hovered, setHovered] = useState<"wa" | "call" | null>(null);
+  const settings = useSettings();
+
+  const phone = settings?.phone || DEFAULT_PHONE;
+  const waNumber = settings?.whatsapp || DEFAULT_WA;
 
   return (
     <div className="fixed bottom-6 right-4 sm:right-6 z-[200] flex flex-col items-end gap-3">
@@ -36,7 +41,7 @@ export default function FloatingButtons() {
         </AnimatePresence>
 
         <motion.a
-          href={`https://wa.me/${WA_NUMBER}?text=${WA_MSG}`}
+          href={`https://wa.me/${waNumber}?text=${WA_MSG}`}
           target="_blank"
           rel="noopener noreferrer"
           aria-label="Chat on WhatsApp"
@@ -71,13 +76,13 @@ export default function FloatingButtons() {
               transition={{ duration: 0.18 }}
               className="bg-white text-primary font-bold text-sm px-3 py-1.5 rounded-xl shadow-3d border border-primary/15 whitespace-nowrap"
             >
-              {PHONE}
+              {phone}
             </motion.span>
           )}
         </AnimatePresence>
 
         <motion.a
-          href={`tel:${PHONE}`}
+          href={`tel:${phone}`}
           aria-label="Call us"
           whileHover={{ scale: 1.1 }}
           whileTap={{ scale: 0.93 }}
