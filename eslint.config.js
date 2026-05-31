@@ -20,8 +20,10 @@ export default tseslint.config(
     files: ["**/*.{ts,tsx}"],
     rules: {
       "@typescript-eslint/no-unused-vars": "off",
-      // layout.tsx & next internals export non-components (metadata, viewport) — expected pattern
-      "react-refresh/only-export-components": "off",
+      // Apostrophes and quotes in JSX content are fine as-is
+      "react/no-unescaped-entities": "off",
+      // <img> vs <Image /> — warn only, not error
+      "@next/next/no-img-element": "warn",
     },
   },
 );
