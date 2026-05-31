@@ -6,7 +6,7 @@ import { useFrame } from "@react-three/fiber";
 import * as THREE from "three";
 import { useScroll, useTransform } from "framer-motion";
 
-export function PlaneModel(props: any) {
+export function PlaneModel(props: React.ComponentProps<"group">) {
   const { scene } = useGLTF("/assets/plane.glb");
   const groupRef = useRef<THREE.Group>(null);
   const { scrollYProgress } = useScroll();

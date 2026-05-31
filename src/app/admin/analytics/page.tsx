@@ -59,7 +59,8 @@ export default function AdminAnalytics() {
   );
 }
 
-function SourceItem({ label, percentage, color }: any) {
+interface SourceItemProps { label: string; percentage: number; color: string; }
+function SourceItem({ label, percentage, color }: SourceItemProps) {
   return (
     <div>
       <div className="flex justify-between text-sm font-bold text-primary/60 mb-2">
@@ -76,7 +77,8 @@ function SourceItem({ label, percentage, color }: any) {
   );
 }
 
-function MetricCard({ title, value, growth, icon: Icon, isNegative }: any) {
+interface MetricCardProps { title: string; value: string; growth: string; icon: React.ElementType; isNegative?: boolean; }
+function MetricCard({ title, value, growth, icon: Icon, isNegative }: MetricCardProps) {
   return (
     <div className="bg-white p-6 rounded-3xl border border-primary/5 shadow-3d-sm">
       <div className="flex items-center gap-3 mb-4">

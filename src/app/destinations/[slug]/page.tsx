@@ -11,6 +11,7 @@ import Footer from "@/components/Footer";
 import PackageCard from "@/components/ui/PackageCard";
 import PackageListItem from "@/components/ui/PackageListItem";
 import { getDestination, destinations } from "@/data/destinations";
+import type { Trip } from "@/data/destinations";
 
 const DestinationDetail = () => {
   const params = useParams();
@@ -211,7 +212,7 @@ const DestinationDetail = () => {
               </div>
 
               <div className="space-y-6">
-                {dest.packages.map((p: any, i: number) => (
+                {dest.packages.map((p: Trip, i: number) => (
                   <PackageListItem
                     key={p.title}
                     title={p.title}
@@ -367,7 +368,8 @@ const DestinationDetail = () => {
   );
 };
 
-const Field = ({ label, value, onChange, type = "text", placeholder, required }: any) => (
+interface FieldProps { label: string; value: string; onChange: (v: string) => void; type?: string; placeholder?: string; required?: boolean; }
+const Field = ({ label, value, onChange, type = "text", placeholder, required }: FieldProps) => (
   <div className="space-y-2">
     <label className="text-[10px] font-bold uppercase tracking-widest text-primary/40 mb-2 block ml-2">{label}</label>
     <input

@@ -122,7 +122,8 @@ const Quote = () => {
   );
 };
 
-const Field = ({ label, value, onChange, type = "text", placeholder, required }: any) => (
+interface FieldProps { label: string; value: string; onChange: (v: string) => void; type?: string; placeholder?: string; required?: boolean; }
+const Field = ({ label, value, onChange, type = "text", placeholder, required }: FieldProps) => (
   <div className="space-y-1.5">
     <label className="text-[10px] font-bold uppercase tracking-widest text-primary/40 block ml-1">{label}</label>
     <input type={type} value={value} required={required} onChange={(e) => onChange(e.target.value)} placeholder={placeholder}
@@ -130,7 +131,8 @@ const Field = ({ label, value, onChange, type = "text", placeholder, required }:
   </div>
 );
 
-const Select = ({ label, value, onChange, options }: any) => (
+interface SelectProps { label: string; value: string; onChange: (v: string) => void; options: string[]; }
+const Select = ({ label, value, onChange, options }: SelectProps) => (
   <div className="space-y-1.5">
     <label className="text-[10px] font-bold uppercase tracking-widest text-primary/40 block ml-1">{label}</label>
     <select title={label} value={value} onChange={(e) => onChange(e.target.value)}
