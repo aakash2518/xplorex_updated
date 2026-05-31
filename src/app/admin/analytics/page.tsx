@@ -77,7 +77,7 @@ function SourceItem({ label, percentage, color }: SourceItemProps) {
   );
 }
 
-interface MetricCardProps { title: string; value: string; growth: string; icon: React.ElementType; isNegative?: boolean; }
+interface MetricCardProps { title: string; value: string; growth: string; icon: React.ComponentType<{ className?: string }>; isNegative?: boolean; }
 function MetricCard({ title, value, growth, icon: Icon, isNegative }: MetricCardProps) {
   return (
     <div className="bg-white p-6 rounded-3xl border border-primary/5 shadow-3d-sm">
