@@ -131,7 +131,7 @@ function timeAgo(iso: string): string {
 }
 
 function StatCard({ label, value, trend, icon: Icon, color }: {
-  label: string; value: string; trend: string; icon: React.ElementType; color: string;
+  label: string; value: string; trend: string; icon: React.ComponentType<{ className?: string }>; color: string;
 }) {
   return (
     <div className="bg-white p-6 rounded-3xl shadow-3d-sm border border-primary/5 group hover:translate-y-[-4px] transition-all duration-300">
