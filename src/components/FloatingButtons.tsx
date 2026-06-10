@@ -5,8 +5,8 @@ import { Phone } from "lucide-react";
 import { useState } from "react";
 import { useSettings } from "@/lib/useStore";
 
-const DEFAULT_PHONE = "XXXXXXXXXX";
-const DEFAULT_WA = "XXXXXXXXXXXX";
+const DEFAULT_PHONE = "8447706518";
+const DEFAULT_WA = "8447706518";
 const WA_MSG = encodeURIComponent("Hi! I'm interested in a trip package. Please help me plan my trip. 🌍");
 
 export default function FloatingButtons() {
@@ -32,7 +32,7 @@ export default function FloatingButtons() {
               initial={{ opacity: 0, x: 8, scale: 0.95 }}
               animate={{ opacity: 1, x: 0, scale: 1 }}
               exit={{   opacity: 0, x: 8, scale: 0.95 }}
-              transition={{ duration: 0.18 }}
+              transition={{ duration: 0.1 }}
               className="bg-white text-[#25D366] font-bold text-sm px-3 py-1.5 rounded-xl shadow-3d border border-[#25D366]/20 whitespace-nowrap"
             >
               Chat on WhatsApp
@@ -73,7 +73,7 @@ export default function FloatingButtons() {
               initial={{ opacity: 0, x: 8, scale: 0.95 }}
               animate={{ opacity: 1, x: 0, scale: 1 }}
               exit={{   opacity: 0, x: 8, scale: 0.95 }}
-              transition={{ duration: 0.18 }}
+              transition={{ duration: 0.1 }}
               className="bg-white text-primary font-bold text-sm px-3 py-1.5 rounded-xl shadow-3d border border-primary/15 whitespace-nowrap"
             >
               {phone}

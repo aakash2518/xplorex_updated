@@ -5,19 +5,7 @@
 
 import { destinations as defaultDestinations, type Destination, type Trip } from "@/data/destinations";
 
-// ─── Lead type ────────────────────────────────────────────────────────────────
-export type Lead = {
-  id: string;
-  name: string;
-  phone: string;
-  destination: string;
-  month?: string;
-  travelers?: string;
-  email?: string;
-  message?: string;
-  status: "New" | "Pending" | "Contacted" | "Resolved";
-  createdAt: string; // ISO string
-};
+
 
 // ─── Site Settings ────────────────────────────────────────────────────────────
 export type SiteSettings = {
@@ -31,17 +19,16 @@ export type SiteSettings = {
 
 export const DEFAULT_SETTINGS: SiteSettings = {
   companyName: "Xplorex Travels",
-  adminName: "XXXXXXXXXX",
-  adminEmail: "XXXXXXXXXX@XXXXXXXXXX.com",
-  phone: "XXXXXXXXXX",
-  whatsapp: "XXXXXXXXXXXX",
+  adminName: "Admin",
+  adminEmail: "admin@xplorex.com",
+  phone: "8447706518",
+  whatsapp: "8447706518",
   bio: "Managing the future of travel.",
 };
 
 // ─── Storage keys ─────────────────────────────────────────────────────────────
 const KEYS = {
   destinations: "xplorex_destinations",
-  leads: "xplorex_leads",
   settings: "xplorex_settings",
 };
 
@@ -143,42 +130,15 @@ export function deleteTrip(destSlug: string, tripTitle: string): void {
   );
 }
 
-// ─── Leads ────────────────────────────────────────────────────────────────────
-export function getLeads(): Lead[] {
-  return read<Lead[]>(KEYS.leads, []);
-}
 
-export function addLead(lead: Omit<Lead, "id" | "createdAt" | "status">): Lead {
-  const all = getLeads();
-  const newLead: Lead = {
-    ...lead,
-    id: Date.now().toString(),
-    status: "New",
-    createdAt: new Date().toISOString(),
-  };
-  write(KEYS.leads, [newLead, ...all]);
-  return newLead;
-}
-
-export function updateLeadStatus(id: string, status: Lead["status"]): void {
-  const all = getLeads();
-  write(
-    KEYS.leads,
-    all.map((l) => (l.id === id ? { ...l, status } : l))
-  );
-}
-
-export function deleteLead(id: string): void {
-  const all = getLeads();
-  write(
-    KEYS.leads,
-    all.filter((l) => l.id !== id)
-  );
-}
 
 // ─── Settings ─────────────────────────────────────────────────────────────────
 export function getSettings(): SiteSettings {
-  return read<SiteSettings>(KEYS.settings, DEFAULT_SETTINGS);
+  const settings = read<SiteSettings>(KEYS.settings, DEFAULT_SETTINGS);
+  // Fix cached placeholders
+  if (settings.phone === "XXXXXXXXXX") settings.phone = "8447706518";
+  if (settings.whatsapp === "XXXXXXXXXXXX") settings.whatsapp = "8447706518";
+  return settings;
 }
 
 export function saveSettings(settings: SiteSettings): void {

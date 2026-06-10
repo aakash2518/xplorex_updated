@@ -57,10 +57,10 @@
     font-family: var(--font-jakarta), system-ui, sans-serif;
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
+    /* NOTE: background-attachment:fixed removed — causes full repaint on scroll (kills mobile perf) */
     background-image:
       radial-gradient(ellipse at top, hsl(246 67% 55% / 0.04), transparent 60%),
       radial-gradient(ellipse at bottom right, hsl(188 95% 55% / 0.06), transparent 60%);
-    background-attachment: fixed;
   }
 
   h1, h2, h3, h4 {
@@ -78,13 +78,6 @@
       scroll-behavior: auto !important;
     }
   }
-}
-
-@keyframes float-gentle {
-  0%, 100% { transform: translateY(0px) rotate(0deg); }
-  25% { transform: translateY(-10px) rotate(1deg); }
-  50% { transform: translateY(-5px) rotate(-1deg); }
-  75% { transform: translateY(-15px) rotate(0.5deg); }
 }
 
 /* ─── Utility Classes ────────────────────────────────────────────── */
@@ -108,11 +101,15 @@
 
   section {
     content-visibility: auto;
-    contain-intrinsic-size: 1px 1000px;
+    contain-intrinsic-size: 1px 800px;
   }
 
   #home {
-    content-visibility: visible; /* Ensure Hero is always visible immediately */
+    content-visibility: visible; /* Hero always visible */
+  }
+
+  #testimonials {
+    contain-intrinsic-size: 1px 1200px; /* Tall section */
   }
 
   .shadow-3d-sm  { box-shadow: var(--shadow-3d-sm); }
@@ -126,28 +123,39 @@
   .preserve-3d      { transform-style: preserve-3d; }
   .backface-hidden  { backface-visibility: hidden; }
 
-  /* Floating animations */
-  .float-gentle-0 { animation: float-gentle 4s ease-in-out infinite; }
-  .float-gentle-1 { animation: float-gentle 4.5s ease-in-out infinite 0.5s; }
-  .float-gentle-2 { animation: float-gentle 5s ease-in-out infinite 1s; }
-  
-  .sparkle-delay { animation-delay: 1s; }
-  .decoration-delay-2 { animation-delay: 2s; }
-  .decoration-delay-4 { animation-delay: 4s; }
-  
-  .slide-in {
-    animation: slideIn 0.8s ease-out forwards;
+  /* CSS float animations — compositor-only, zero JS cost */
+  .float-css-0 { animation: float-gentle 4s ease-in-out infinite; }
+  .float-css-1 { animation: float-gentle 4.5s ease-in-out infinite 0.5s; }
+  .float-css-2 { animation: float-gentle 5s ease-in-out infinite 1s; }
+  .float-css-3 { animation: float-gentle 4.2s ease-in-out infinite 0.2s; }
+  .float-css-4 { animation: float-gentle 4.8s ease-in-out infinite 0.8s; }
+  .float-css-5 { animation: float-gentle 5.2s ease-in-out infinite 1.2s; }
+  .float-css-6 { animation: float-gentle 4.6s ease-in-out infinite 0.6s; }
+  .float-css-7 { animation: float-gentle 5.5s ease-in-out infinite 1.5s; }
+  .float-css-8 { animation: float-gentle 4.3s ease-in-out infinite 0.3s; }
+  .float-css-9 { animation: float-gentle 5.8s ease-in-out infinite 1.8s; }
+
+  /* Ken Burns — pure CSS compositor animation */
+  .kenburns {
+    animation: kenburns 12s ease-in-out infinite alternate;
+    will-change: transform;
+  }
+
+  /* Marquee — GPU-accelerated */
+  .marquee {
+    animation: marquee 40s linear infinite;
+    will-change: transform;
   }
 
   /* 3D card — disabled on mobile for performance */
   .card-3d {
     transition: transform 0.5s var(--ease-spring), box-shadow 0.5s var(--ease-smooth);
-    will-change: transform;
   }
   @media (hover: hover) {
     .card-3d:hover {
       transform: rotateX(4deg) rotateY(-4deg) translateY(-6px) scale(1.01);
       box-shadow: var(--shadow-3d-lg);
+      will-change: transform;
     }
   }
 
@@ -174,16 +182,33 @@
   }
   .shine:hover::after { background-position: 200% 0; }
 
-  /* Marquee — GPU-accelerated */
-  .marquee {
-    animation: marquee 40s linear infinite;
-    will-change: transform;
-  }
-
   /* Touch targets */
   .touch-target {
     min-height: 44px;
     min-width: 44px;
+  }
+
+  /* Instant cursor & tap highlight removal */
+  a, button, [role="button"], select, label[for] {
+    cursor: pointer;
+    -webkit-tap-highlight-color: transparent;
+    transition: all 0.15s ease;
+  }
+  
+  a:active, button:active, [role="button"]:active {
+    transform: scale(0.97);
+    opacity: 0.85;
+  }
+  
+  button:disabled {
+    opacity: 0.7;
+    pointer-events: none;
+  }
+
+  /* GPU-accelerate fixed/sticky elements */
+  header, .fixed {
+    will-change: transform;
+    transform: translateZ(0);
   }
 }
 
@@ -199,9 +224,16 @@
   50%       { transform: translateY(-18px) rotate(2deg); }
 }
 
-@keyframes float-slow {
-  0%, 100% { transform: translateY(0) translateX(0); }
-  50%       { transform: translateY(-24px) translateX(8px); }
+@keyframes float-gentle {
+  0%, 100% { transform: translateY(0px) rotate(0deg); }
+  25%       { transform: translateY(-10px) rotate(1deg); }
+  50%       { transform: translateY(-5px) rotate(-1deg); }
+  75%       { transform: translateY(-15px) rotate(0.5deg); }
+}
+
+@keyframes kenburns {
+  from { transform: scale(1) translate(0, 0); }
+  to   { transform: scale(1.06) translate(-1%, -1%); }
 }
 
 @keyframes plane-fly {
@@ -233,11 +265,4 @@
 @keyframes slideIn {
   from { opacity: 0; transform: translateX(50px); }
   to { opacity: 1; transform: translateX(0); }
-}
-
-@keyframes float-gentle {
-  0%, 100% { transform: translateY(0px) rotate(0deg); }
-  25% { transform: translateY(-10px) rotate(1deg); }
-  50% { transform: translateY(-5px) rotate(-1deg); }
-  75% { transform: translateY(-15px) rotate(0.5deg); }
 }

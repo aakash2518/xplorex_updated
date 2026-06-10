@@ -1,27 +1,14 @@
 "use client";
 
-import { useEffect, useState, useCallback } from "react";
+import React, { useEffect, useState, useCallback } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import { X, MapPin, Calendar, User, Phone, Plane } from "lucide-react";
-import { addLead, getSettings } from "@/lib/store";
-import { notifyStoreUpdate } from "@/lib/useStore";
+import { X, MapPin, Calendar, User, Phone, Plane, Loader2 } from "lucide-react";
+import { FORM_OPTIONS } from "@/constants/theme";
+import { sendWhatsAppEnquiry } from "@/services/api";
+import { vibrate } from "@/utils/helpers";
+import { toast } from "sonner";
 
-const DESTINATIONS = [
-  "Bali", "Dubai", "Thailand", "Maldives", "Singapore", "Vietnam",
-  "Georgia", "Sri Lanka", "Japan", "Europe", "Switzerland", "Australia",
-  "Turkey", "Kazakhstan",
-  "Kashmir", "Kerala", "Andaman", "Rajasthan", "Himachal Pradesh",
-  "Uttarakhand", "Ladakh", "Spiti", "Meghalaya", "Sikkim",
-];
-
-const MONTHS = [
-  "January", "February", "March", "April", "May", "June",
-  "July", "August", "September", "October", "November", "December",
-];
-
-const TRAVELERS = ["1 Person", "2 People", "3-4 People", "5-8 People", "9+ People"];
-
-export default function LeadPopup() {
+export const LeadPopup = React.memo(function LeadPopup() {
   const [open, setOpen] = useState(false);
   const [form, setForm] = useState({
     name: "",
@@ -30,69 +17,83 @@ export default function LeadPopup() {
     month: "",
     travelers: "",
   });
+  const [pending, setPending] = useState(false);
 
   // Show after 3s, once per session
   useEffect(() => {
-    if (sessionStorage.getItem("xplorex_popup_seen")) return;
+    if (typeof window !== "undefined" && sessionStorage.getItem("xplorex_popup_seen")) return;
     const t = setTimeout(() => {
       setOpen(true);
-      sessionStorage.setItem("xplorex_popup_seen", "1");
+      if (typeof window !== "undefined") {
+        sessionStorage.setItem("xplorex_popup_seen", "1");
+      }
     }, 3000);
     return () => clearTimeout(t);
   }, []);
 
   const close = useCallback(() => setOpen(false), []);
 
-  // Escape key
+  // Escape key listener
   useEffect(() => {
     if (!open) return;
-    const fn = (e: KeyboardEvent) => { if (e.key === "Escape") close(); };
-    window.addEventListener("keydown", fn);
-    return () => window.removeEventListener("keydown", fn);
+    const handleKeyDown = (e: KeyboardEvent) => {
+      if (e.key === "Escape") close();
+    };
+    window.addEventListener("keydown", handleKeyDown);
+    return () => window.removeEventListener("keydown", handleKeyDown);
   }, [open, close]);
 
   // Lock body scroll
   useEffect(() => {
-    document.body.style.overflow = open ? "hidden" : "";
-    return () => { document.body.style.overflow = ""; };
+    if (typeof document !== "undefined") {
+      document.body.style.overflow = open ? "hidden" : "";
+    }
+    return () => {
+      if (typeof document !== "undefined") {
+        document.body.style.overflow = "";
+      }
+    };
   }, [open]);
 
-  const set = (key: keyof typeof form) =>
-    (e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>) =>
-      setForm(p => ({ ...p, [key]: e.target.value }));
+  const handleChange = useCallback((key: keyof typeof form) => {
+    return (e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>) => {
+      setForm((p) => ({ ...p, [key]: e.target.value }));
+    };
+  }, []);
 
-  const handleSubmit = (e: React.FormEvent) => {
-    e.preventDefault();
+  const handleSubmit = useCallback(
+    async (e: React.FormEvent) => {
+      e.preventDefault();
+      vibrate([20, 50, 20]);
 
-    // Save lead to store so admin can see it
-    addLead({
-      name: form.name,
-      phone: form.phone,
-      destination: form.destination || "Not specified",
-      month: form.month,
-      travelers: form.travelers,
-    });
-    notifyStoreUpdate();
+      if (!form.name.trim() || !form.phone.trim()) {
+        toast.error("Please fill in your name and phone number.");
+        return;
+      }
 
-    // Get WhatsApp number from settings
-    const settings = getSettings();
-    const waNumber = settings.whatsapp || "XXXXXXXXXXXX";
-
-    const lines = [
-      `🌍 *New Trip Enquiry – Xplorex*`,
-      ``,
-      `👤 *Name:* ${form.name}`,
-      `📞 *Phone:* ${form.phone}`,
-      `📍 *Destination:* ${form.destination || "Not specified"}`,
-      `📅 *Travel Month:* ${form.month || "Not specified"}`,
-      `👥 *Travelers:* ${form.travelers || "Not specified"}`,
-      ``,
-      `_Sent from xplorex.com_`,
-    ].join("\n");
-
-    window.location.href = `https://wa.me/${waNumber}?text=${encodeURIComponent(lines)}`;
-    setOpen(false);
-  };
+      setPending(true);
+      try {
+        await sendWhatsAppEnquiry(
+          {
+            name: form.name,
+            phone: form.phone,
+            destination: form.destination,
+            month: form.month,
+            travelers: form.travelers,
+          },
+          "lead"
+        );
+        toast.success("Redirecting to WhatsApp...");
+        setOpen(false);
+      } catch (err: unknown) {
+        const msg = err instanceof Error ? err.message : "Unknown error";
+        toast.error("Failed to redirect: " + msg);
+      } finally {
+        setTimeout(() => setPending(false), 2000);
+      }
+    },
+    [form]
+  );
 
   return (
     <AnimatePresence>
@@ -119,7 +120,7 @@ export default function LeadPopup() {
             initial={{ opacity: 0, scale: 0.93, y: 20 }}
             animate={{ opacity: 1, scale: 1,    y: 0  }}
             exit={{   opacity: 0, scale: 0.93, y: 20  }}
-            transition={{ duration: 0.28, ease: [0.34, 1.56, 0.64, 1] }}
+            transition={{ duration: 0.2, ease: [0.34, 1.56, 0.64, 1] }}
             className="fixed inset-0 z-[501] flex items-center justify-center p-4 pointer-events-none"
           >
             <div className="relative w-full max-w-[420px] pointer-events-auto">
@@ -138,7 +139,7 @@ export default function LeadPopup() {
                   <button
                     type="button"
                     onClick={close}
-                    className="absolute top-3.5 right-3.5 w-8 h-8 rounded-full bg-white/20 hover:bg-white/35 grid place-items-center transition-colors"
+                    className="absolute top-3.5 right-3.5 w-8 h-8 rounded-full bg-white/20 hover:bg-white/35 grid place-items-center transition-colors focus:outline-none"
                     aria-label="Close popup"
                   >
                     <X className="w-4 h-4" />
@@ -167,7 +168,7 @@ export default function LeadPopup() {
                       placeholder="Your Full Name"
                       aria-label="Full Name"
                       value={form.name}
-                      onChange={set("name")}
+                      onChange={handleChange("name")}
                       className="w-full pl-10 pr-4 py-3 rounded-2xl border-2 border-primary/10 bg-primary/[0.03] focus:bg-white focus:border-primary/30 text-primary outline-none transition-all font-semibold text-sm placeholder:font-normal placeholder:text-primary/35"
                     />
                   </div>
@@ -180,7 +181,7 @@ export default function LeadPopup() {
                       placeholder="Your Phone Number"
                       aria-label="Phone Number"
                       value={form.phone}
-                      onChange={set("phone")}
+                      onChange={handleChange("phone")}
                       pattern="[0-9+\s\-]{7,15}"
                       className="w-full pl-10 pr-4 py-3 rounded-2xl border-2 border-primary/10 bg-primary/[0.03] focus:bg-white focus:border-primary/30 text-primary outline-none transition-all font-semibold text-sm placeholder:font-normal placeholder:text-primary/35"
                     />
@@ -192,11 +193,15 @@ export default function LeadPopup() {
                       title="Select destination"
                       aria-label="Destination"
                       value={form.destination}
-                      onChange={set("destination")}
+                      onChange={handleChange("destination")}
                       className="w-full pl-10 pr-4 py-3 rounded-2xl border-2 border-primary/10 bg-primary/[0.03] focus:bg-white focus:border-primary/30 text-primary outline-none transition-all font-semibold text-sm appearance-none cursor-pointer"
                     >
                       <option value="">Where do you want to go?</option>
-                      {DESTINATIONS.map(d => <option key={d} value={d}>{d}</option>)}
+                      {FORM_OPTIONS.destinations.map((d) => (
+                        <option key={d} value={d}>
+                          {d}
+                        </option>
+                      ))}
                     </select>
                   </div>
 
@@ -207,34 +212,54 @@ export default function LeadPopup() {
                         title="Select travel month"
                         aria-label="Travel Month"
                         value={form.month}
-                        onChange={set("month")}
+                        onChange={handleChange("month")}
                         className="w-full pl-9 pr-3 py-3 rounded-2xl border-2 border-primary/10 bg-primary/[0.03] focus:bg-white focus:border-primary/30 text-primary outline-none transition-all font-semibold text-sm appearance-none cursor-pointer"
                       >
                         <option value="">Month?</option>
-                        {MONTHS.map(m => <option key={m} value={m}>{m}</option>)}
+                        {FORM_OPTIONS.months.map((m) => (
+                          <option key={m} value={m}>
+                            {m}
+                          </option>
+                        ))}
                       </select>
                     </div>
 
-                    <select
-                      title="Select number of travelers"
-                      aria-label="Number of Travelers"
-                      value={form.travelers}
-                      onChange={set("travelers")}
-                      className="w-full px-4 py-3 rounded-2xl border-2 border-primary/10 bg-primary/[0.03] focus:bg-white focus:border-primary/30 text-primary outline-none transition-all font-semibold text-sm appearance-none cursor-pointer"
-                    >
-                      <option value="">Travelers?</option>
-                      {TRAVELERS.map(t => <option key={t} value={t}>{t}</option>)}
-                    </select>
+                    <div className="relative">
+                      <select
+                        title="Select number of travelers"
+                        aria-label="Number of Travelers"
+                        value={form.travelers}
+                        onChange={handleChange("travelers")}
+                        className="w-full px-4 py-3 rounded-2xl border-2 border-primary/10 bg-primary/[0.03] focus:bg-white focus:border-primary/30 text-primary outline-none transition-all font-semibold text-sm appearance-none cursor-pointer"
+                      >
+                        <option value="">Travelers?</option>
+                        {FORM_OPTIONS.travelers.map((t) => (
+                          <option key={t} value={t}>
+                            {t}
+                          </option>
+                        ))}
+                      </select>
+                    </div>
                   </div>
 
                   <button
                     type="submit"
-                    className="w-full flex items-center justify-center gap-2.5 bg-[#25D366] hover:bg-[#20c05c] active:scale-[0.98] text-white font-bold py-4 rounded-2xl shadow-lg transition-all text-[15px] mt-1"
+                    disabled={pending}
+                    className="w-full flex items-center justify-center gap-2.5 bg-[#25D366] hover:bg-[#20c05c] active:scale-[0.96] disabled:opacity-75 disabled:scale-100 disabled:pointer-events-none text-white font-bold py-4 rounded-2xl shadow-lg transition-all text-[15px] mt-1 touch-target"
                   >
-                    <svg viewBox="0 0 24 24" className="w-5 h-5 fill-white flex-shrink-0" aria-hidden>
-                      <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/>
-                    </svg>
-                    Send on WhatsApp
+                    {pending ? (
+                      <>
+                        <Loader2 className="w-5 h-5 animate-spin" />
+                        Redirecting...
+                      </>
+                    ) : (
+                      <>
+                        <svg viewBox="0 0 24 24" className="w-5 h-5 fill-white flex-shrink-0" aria-hidden>
+                          <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/>
+                        </svg>
+                        Send on WhatsApp
+                      </>
+                    )}
                   </button>
 
                   <p className="text-center text-[11px] text-primary/30 font-medium pt-0.5">
@@ -248,4 +273,6 @@ export default function LeadPopup() {
       )}
     </AnimatePresence>
   );
-}
+});
+
+export default LeadPopup;

@@ -1,9 +1,13 @@
 "use client";
 
+import React, { useCallback } from "react";
 import { motion } from "framer-motion";
-import { Globe2, BadgeIndianRupee, HeadphonesIcon, ShieldCheck, Sparkles, Star, Users, Award } from "lucide-react";
+import { Globe2, Star, Users, Award, type LucideIcon } from "lucide-react";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
+import Image from "next/image";
+import { CORE_VALUES } from "@/constants/theme";
+import { vibrate } from "@/utils/helpers";
 
 const stats = [
   { icon: Users, label: "Happy Travelers", value: "10K+" },
@@ -12,38 +16,15 @@ const stats = [
   { icon: Award, label: "Experience", value: "8+ Years" },
 ];
 
-const values = [
-  {
-    icon: Globe2,
-    title: "Global Proficiency",
-    desc: "Navigate destinations with confidence, benefiting from deep cultural understanding and meticulous logistical planning across 12+ countries.",
-    color: "from-primary to-accent",
-  },
-  {
-    icon: BadgeIndianRupee,
-    title: "Unbeatable Prices",
-    desc: "Affordability without compromising on quality. From ₹19,000 onward, your dream destinations made convenient.",
-    color: "from-accent to-primary",
-  },
-  {
-    icon: HeadphonesIcon,
-    title: "24/7 Customer Care",
-    desc: "Seamless travel planning with full-time customer service. Our dedicated team supports you at every step of the journey.",
-    color: "from-primary to-indigo-500",
-  },
-  {
-    icon: ShieldCheck,
-    title: "Trusted & Verified",
-    desc: "Industry-leading safety standards, verified partners, and transparent quotations — no hidden surprises.",
-    color: "from-indigo-500 to-primary",
-  },
-];
-
 export default function WhyUsPage() {
+  const handleReviewClick = useCallback(() => {
+    vibrate(10);
+  }, []);
+
   return (
     <main className="bg-background min-h-screen">
       <Navbar />
-      
+
       {/* Hero Section */}
       <section className="pt-28 sm:pt-32 md:pt-36 pb-10 sm:pb-16">
         <div className="container px-4 sm:px-6 lg:px-8">
@@ -62,23 +43,33 @@ export default function WhyUsPage() {
                 absolutely worry-free for every Indian explorer.
               </p>
 
-              <div className="grid grid-cols-2 gap-4">
+              <div className="grid grid-cols-2 gap-4 select-none">
                 {stats.map((s, i) => (
-                  <motion.div key={s.label} initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: i * 0.1 }}
-                    className="bg-white rounded-2xl p-4 sm:p-6 shadow-3d border border-primary/5">
+                  <motion.div
+                    key={s.label}
+                    initial={{ opacity: 0, y: 20 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    transition={{ delay: i * 0.1 }}
+                    className="bg-white rounded-2xl p-4 sm:p-6 shadow-3d border border-primary/5"
+                  >
                     <s.icon className="w-5 sm:w-6 h-5 sm:h-6 text-accent mb-2 sm:mb-3" />
                     <div className="text-2xl sm:text-3xl font-bold text-primary">{s.value}</div>
-                    <div className="text-[10px] uppercase tracking-widest text-primary/30 font-bold">{s.label}</div>
+                    <div className="text-[10px] uppercase tracking-widest text-primary/30 font-bold">
+                      {s.label}
+                    </div>
                   </motion.div>
                 ))}
               </div>
             </motion.div>
 
-            <motion.div initial={{ opacity: 0, scale: 0.9 }} animate={{ opacity: 1, scale: 1 }}
-              className="relative aspect-square rounded-2xl sm:rounded-[3rem] overflow-hidden border-4 sm:border-8 border-primary/5 shadow-3d-lg">
-              <img src="/assets/hero-travel.jpg" alt="Our story" className="w-full h-full object-cover" />
-              <div className="absolute inset-0 bg-gradient-to-t from-primary/60 to-transparent" />
-              <div className="absolute bottom-4 sm:bottom-8 left-4 sm:left-8 right-4 sm:right-8 p-4 sm:p-6 bg-white/95 backdrop-blur-xl border border-primary/10 rounded-2xl sm:rounded-3xl shadow-3d-lg">
+            <motion.div
+              initial={{ opacity: 0, scale: 0.9 }}
+              animate={{ opacity: 1, scale: 1 }}
+              className="relative aspect-square rounded-2xl sm:rounded-[3rem] overflow-hidden border-4 sm:border-8 border-primary/5 shadow-3d-lg"
+            >
+              <Image src="/assets/hero-travel.jpg" alt="Our story" fill sizes="(max-width: 768px) 100vw, 50vw" priority className="object-cover" />
+              <div className="absolute inset-0 bg-gradient-to-t from-primary/60 to-transparent pointer-events-none" />
+              <div className="absolute bottom-4 sm:bottom-8 left-4 sm:left-8 right-4 sm:right-8 p-4 sm:p-6 bg-white/95 backdrop-blur-xl border border-primary/10 rounded-2xl sm:rounded-3xl shadow-3d-lg pointer-events-none">
                 <div className="text-accent font-bold mb-2 flex items-center gap-2 italic text-sm sm:text-base">
                   <Star className="w-4 sm:w-5 h-4 sm:h-5 fill-current" />
                   "The best travel planners we've used."
@@ -102,16 +93,27 @@ export default function WhyUsPage() {
         </div>
 
         <div className="container px-4 sm:px-6 lg:px-8 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-5 sm:gap-6 lg:gap-8">
-          {values.map((v, i) => (
-            <motion.div key={v.title} initial={{ opacity: 0, y: 30 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} transition={{ delay: i * 0.08 }}
-              className="group bg-white rounded-2xl sm:rounded-3xl p-6 sm:p-8 border border-primary/5 shadow-3d lift-hover">
-              <div className={`w-12 sm:w-14 h-12 sm:h-14 rounded-xl sm:rounded-2xl bg-gradient-to-br ${v.color} grid place-items-center mb-5 sm:mb-6 shadow-glow group-hover:scale-110 transition-transform`}>
-                <v.icon className="w-6 sm:w-7 h-6 sm:h-7 text-white" />
-              </div>
-              <h3 className="font-display text-lg sm:text-xl font-bold text-primary mb-3">{v.title}</h3>
-              <p className="text-primary/60 leading-relaxed font-medium text-sm">{v.desc}</p>
-            </motion.div>
-          ))}
+          {CORE_VALUES.map((v, i) => {
+            const Icon = v.icon as LucideIcon;
+            return (
+              <motion.div
+                key={v.title}
+                initial={{ opacity: 0, y: 30 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ delay: i * 0.08 }}
+                className="group bg-white rounded-2xl sm:rounded-3xl p-6 sm:p-8 border border-primary/5 shadow-3d lift-hover"
+              >
+                <div className={`w-12 sm:w-14 h-12 sm:h-14 rounded-xl sm:rounded-2xl bg-gradient-to-br ${v.color} grid place-items-center mb-5 sm:mb-6 shadow-glow group-hover:scale-110 transition-transform`}>
+                  <Icon className="w-6 sm:w-7 h-6 sm:h-7 text-white" />
+                </div>
+                <h3 className="font-display text-lg sm:text-xl font-bold text-primary mb-3">
+                  {v.title}
+                </h3>
+                <p className="text-primary/60 leading-relaxed font-medium text-sm">{v.desc}</p>
+              </motion.div>
+            );
+          })}
         </div>
       </section>
 

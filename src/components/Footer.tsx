@@ -16,8 +16,8 @@ const COMPANY = [
 ];
 
 const SOCIAL = [
-  { Icon: Instagram, href: "https://www.instagram.com/XXXXXXXXXX", label: "Instagram" },
-  { Icon: Facebook,  href: "https://www.facebook.com/XXXXXXXXXX", label: "Facebook" },
+  { Icon: Instagram, href: "https://www.instagram.com/xplorex.in", label: "Instagram" },
+  { Icon: Facebook,  href: "https://www.facebook.com/share/18fWFUevja/?mibextid=wwXIfr", label: "Facebook" },
 ];
 
 const Footer = () => (
@@ -89,27 +89,43 @@ const Footer = () => (
         <div>
           <h4 className="font-bold mb-5 uppercase text-xs tracking-widest text-accent">Get In Touch</h4>
           <ul className="space-y-3.5 text-sm">
-            <li className="flex items-center gap-3">
-              <div className="w-8 h-8 rounded-lg bg-primary/5 grid place-items-center flex-shrink-0">
+            <li className="flex items-start gap-3">
+              <div className="w-8 h-8 rounded-lg bg-primary/5 grid place-items-center flex-shrink-0 mt-0.5">
                 <Phone className="w-3.5 h-3.5 text-primary" />
               </div>
-              <a href="tel:XXXXXXXXXX" className="text-primary font-bold hover:text-accent transition-colors">
-                +91 XXXX XXX XXX
-              </a>
+              <div className="flex flex-col gap-1.5">
+                <a href="tel:+9184487706518" className="text-primary font-bold hover:text-accent transition-colors whitespace-nowrap">
+                  +91 84487706518
+                </a>
+                <a href="tel:+919315279350" className="text-primary font-bold hover:text-accent transition-colors whitespace-nowrap">
+                  +91 9315279350
+                </a>
+                <a href="tel:+919582285982" className="text-primary font-bold hover:text-accent transition-colors whitespace-nowrap">
+                  +91 9582285982
+                </a>
+              </div>
             </li>
-            <li className="flex items-center gap-3">
-              <div className="w-8 h-8 rounded-lg bg-primary/5 grid place-items-center flex-shrink-0">
+            <li className="flex items-start gap-3">
+              <div className="w-8 h-8 rounded-lg bg-primary/5 grid place-items-center flex-shrink-0 mt-0.5">
                 <Mail className="w-3.5 h-3.5 text-primary" />
               </div>
-              <a href="mailto:XXXXXXXXXX@XXXXXXXXXX.in" className="text-primary font-bold hover:text-accent transition-colors">
-                XXXXXXXXXX@XXXXXXXXXX.in
-              </a>
+              <div className="flex flex-col gap-1.5">
+                <a href="mailto:info@xplorex.in" className="text-primary font-bold hover:text-accent transition-colors">
+                  info@xplorex.in
+                </a>
+                <a href="mailto:sales@xplorex.in" className="text-primary font-bold hover:text-accent transition-colors">
+                  sales@xplorex.in
+                </a>
+              </div>
             </li>
-            <li className="flex items-center gap-3">
-              <div className="w-8 h-8 rounded-lg bg-primary/5 grid place-items-center flex-shrink-0">
+            <li className="flex items-start gap-3">
+              <div className="w-8 h-8 rounded-lg bg-primary/5 grid place-items-center flex-shrink-0 mt-1">
                 <MapPin className="w-3.5 h-3.5 text-primary" />
               </div>
-              <span className="text-primary/55 font-semibold">XXXXXXXXXX, India · Global Service</span>
+              <span className="text-primary/70 font-semibold leading-relaxed">
+                <span className="block font-bold text-primary mb-0.5">Address:</span>
+                B-2/11, Block B, Block E, Mohan Cooperative Industrial Estate, Badarpur, New Delhi, Delhi 110044
+              </span>
             </li>
           </ul>
         </div>

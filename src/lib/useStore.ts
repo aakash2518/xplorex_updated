@@ -7,9 +7,7 @@
 import { useState, useEffect, useCallback } from "react";
 import {
   getDestinations,
-  getLeads,
   getSettings,
-  type Lead,
   type SiteSettings,
 } from "./store";
 import type { Destination } from "@/data/destinations";
@@ -40,22 +38,7 @@ export function useDestinations() {
   return data;
 }
 
-export function useLeads() {
-  const [data, setData] = useState<Lead[]>([]);
-  const refresh = useCallback(() => setData(getLeads()), []);
 
-  useEffect(() => {
-    refresh();
-    window.addEventListener(STORE_EVENT, refresh);
-    window.addEventListener("storage", refresh);
-    return () => {
-      window.removeEventListener(STORE_EVENT, refresh);
-      window.removeEventListener("storage", refresh);
-    };
-  }, [refresh]);
-
-  return data;
-}
 
 export function useSettings() {
   const [data, setData] = useState<SiteSettings | null>(null);

@@ -4,7 +4,7 @@ import { motion } from "framer-motion";
 import { Plane } from "lucide-react";
 import { useState } from "react";
 
-const WA_NUMBER = "XXXXXXXXXXXX";
+const WA_NUMBER = "918447706518"; // India country code + number
 
 const WA_ICON = (
   <svg viewBox="0 0 24 24" className="w-5 h-5 fill-white flex-shrink-0" aria-hidden>
@@ -57,13 +57,13 @@ const Quote = () => {
 
             <div className="space-y-3">
               {[
-                { k: "Call",  v: "+91 XXXX XXX XXX" },
-                { k: "Email", v: "XXXXXXXXXX@XXXXXXXXXX.in" },
+                { k: "Call",  v: "+91 8447706518" },
+                { k: "Email", v: "info@xplorex.in" },
                 { k: "Hours", v: "24 / 7 — Always Available" },
               ].map((c) => (
                 <div key={c.k} className="flex items-center gap-4 bg-white rounded-2xl p-4 sm:p-5 shadow-3d border border-primary/5">
                   <div className="text-[10px] uppercase tracking-widest text-primary/30 font-bold w-12 sm:w-16 flex-shrink-0">{c.k}</div>
-                  <div className="font-bold text-primary text-sm sm:text-base">{c.v}</div>
+                  <div className="font-bold text-primary text-sm sm:text-base whitespace-nowrap">{c.v}</div>
                 </div>
               ))}
             </div>

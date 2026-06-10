@@ -89,12 +89,11 @@ const Navbar = memo(function Navbar() {
           {/* CTA + hamburger */}
           <div className="flex items-center gap-2 sm:gap-3">
             <a
-              href="tel:XXXXXXXXXX"
-              className="hidden sm:flex items-center gap-1.5 sm:gap-2 px-3 sm:px-4 py-2 sm:py-2.5 rounded-xl sm:rounded-2xl bg-accent text-white font-semibold shadow-press hover:translate-y-0.5 active:translate-y-1 transition-transform text-xs sm:text-sm"
+              href="tel:8447706518"
+              className="hidden sm:flex items-center gap-1.5 sm:gap-2 px-3 sm:px-4 py-2 sm:py-2.5 rounded-xl sm:rounded-2xl bg-accent text-white font-semibold shadow-press hover:translate-y-0.5 active:translate-y-1 transition-transform text-xs sm:text-sm whitespace-nowrap"
             >
-              <Phone className="w-3 sm:w-4 h-3 sm:h-4" />
-              <span className="hidden md:inline">XXXXXXXXXX</span>
-              <span className="md:hidden">Call</span>
+              <Phone className="w-3 sm:w-4 h-3 sm:h-4 flex-shrink-0" />
+              <span>+91 8447706518</span>
             </a>
 
             <button
@@ -119,7 +118,7 @@ const Navbar = memo(function Navbar() {
               initial={{ opacity: 0, y: -8, scale: 0.98 }}
               animate={{ opacity: 1, y: 0,  scale: 1 }}
               exit={{   opacity: 0, y: -8, scale: 0.98 }}
-              transition={{ duration: 0.18, ease: "easeOut" }}
+              transition={{ duration: 0.12, ease: "easeOut" }}
               className="lg:hidden mt-2 bg-white/95 backdrop-blur-2xl border border-primary/10 rounded-2xl sm:rounded-3xl p-3 sm:p-4 shadow-3d"
               aria-label="Mobile navigation"
             >
@@ -139,11 +138,11 @@ const Navbar = memo(function Navbar() {
 
               <div className="mt-3 pt-3 border-t border-primary/10 sm:hidden">
                 <a
-                  href="tel:XXXXXXXXXX"
-                  className="flex items-center gap-2 px-3 py-2.5 rounded-xl bg-accent text-white font-semibold text-sm"
+                  href="tel:8447706518"
+                  className="flex items-center gap-2 px-3 py-2.5 rounded-xl bg-accent text-white font-semibold text-sm whitespace-nowrap"
                 >
-                  <Phone className="w-4 h-4" />
-                  XXXXXXXXXX
+                  <Phone className="w-4 h-4 flex-shrink-0" />
+                  +91 8447706518
                 </a>
               </div>
             </motion.nav>

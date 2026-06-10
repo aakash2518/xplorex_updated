@@ -5,9 +5,8 @@ import PlaneScene from "./PlaneScene";
 
 export default function FlightController() {
   const pathname = usePathname();
-  const isAdmin = pathname?.startsWith("/admin");
 
-  if (isAdmin) return null;
+  if (pathname !== "/") return null;
 
   return <PlaneScene />;
 }

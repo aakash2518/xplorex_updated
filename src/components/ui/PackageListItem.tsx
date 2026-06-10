@@ -2,6 +2,7 @@
 
 import { motion } from "framer-motion";
 import { Clock, MapPin, ChevronRight, Check, Star } from "lucide-react";
+import React from "react";
 import Image from "next/image";
 import Link from "next/link";
 
@@ -18,7 +19,7 @@ interface Props {
   index: number;
 }
 
-export default function PackageListItem({
+export const PackageListItem = React.memo(function PackageListItem({
   title, duration, price, description, img,
   destination, slug, category, type, index,
 }: Props) {
@@ -102,4 +103,6 @@ export default function PackageListItem({
       </div>
     </motion.div>
   );
-}
+});
+
+export default PackageListItem;

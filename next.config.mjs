@@ -1,17 +1,22 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
   reactStrictMode: true,
+  compress: true,
+  compiler: {
+    removeConsole: process.env.NODE_ENV === "production",
+  },
 
   // Tree-shake heavy packages
-  // experimental: {
-  //   optimizePackageImports: ["framer-motion", "lucide-react", "@radix-ui/react-tooltip"],
-  // },
+  experimental: {
+    optimizePackageImports: ["framer-motion", "lucide-react", "@radix-ui/react-tooltip", "three", "@react-three/fiber", "@react-three/drei"],
+  },
 
   // Image optimisation
   images: {
     formats: ["image/avif", "image/webp"],
     deviceSizes: [640, 828, 1080, 1200, 1920],
     imageSizes: [16, 32, 64, 128, 256],
+    minimumCacheTTL: 604800, // 7 days — optimized images stay cached
     remotePatterns: [
       {
         protocol: "https",
@@ -32,6 +37,13 @@ const nextConfig = {
     return [
       {
         source: "/assets/:path*",
+        headers: [
+          { key: "Cache-Control", value: "public, max-age=31536000, immutable" },
+        ],
+      },
+      {
+        // Large WhatsApp review media — cache aggressively
+        source: "/reviews/:path*",
         headers: [
           { key: "Cache-Control", value: "public, max-age=31536000, immutable" },
         ],

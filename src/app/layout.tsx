@@ -3,6 +3,8 @@ import { Plus_Jakarta_Sans, Space_Grotesk, Caveat } from "next/font/google";
 import "./globals.css";
 import { Providers } from "@/components/Providers";
 import ClientDynamics from "@/components/ClientDynamics";
+import NextTopLoader from "nextjs-toploader";
+import { ErrorBoundary } from "@/components/ErrorBoundary";
 
 // Load fonts via next/font — zero layout shift, self-hosted automatically
 const jakarta = Plus_Jakarta_Sans({
@@ -68,10 +70,13 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
         <link rel="preload" as="image" href="/assets/hero-travel.jpg" fetchPriority="high" />
       </head>
       <body className="bg-background min-h-screen antialiased">
-        <Providers>
-          <ClientDynamics />
-          {children}
-        </Providers>
+        <NextTopLoader color="hsl(188 95% 45%)" showSpinner={false} />
+        <ErrorBoundary>
+          <Providers>
+            <ClientDynamics />
+            {children}
+          </Providers>
+        </ErrorBoundary>
       </body>
     </html>
   );
