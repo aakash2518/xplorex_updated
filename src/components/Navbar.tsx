@@ -12,7 +12,6 @@ const links = [
   { label: "India Trips",           href: "/india-trips" },
   { label: "International Trips",   href: "/international-trips" },
   { label: "Group Tours",           href: "/group-tours" },
-  { label: "Honeymoon Packages",    href: "/honeymoon-packages" },
   { label: "Why Us",                href: "/why-us" },
   { label: "Blog",                  href: "/blog" },
   { label: "Contact",               href: "/contact" },
@@ -49,23 +48,15 @@ const Navbar = memo(function Navbar() {
           }`}
         >
           {/* Logo */}
-          <Link href="/" className="flex items-center gap-2 sm:gap-3 group" aria-label="Xplorex home">
-            <div className="relative w-10 sm:w-12 lg:w-14 h-10 sm:h-12 lg:h-14 rounded-xl sm:rounded-2xl bg-white shadow-3d-sm grid place-items-center overflow-hidden group-hover:scale-110 transition-transform duration-300">
-              <Image
-                src="/assets/xplorex-logo.png"
-                alt="Xplorex"
-                width={44}
-                height={44}
-                className="object-contain w-7 sm:w-9 lg:w-11 h-7 sm:h-9 lg:h-11"
-                priority
-              />
-            </div>
-            <div className="leading-tight">
-              <div className="font-display text-lg sm:text-xl lg:text-2xl font-bold text-primary">Xplorex</div>
-              <div className="text-[9px] sm:text-[10px] tracking-widest uppercase text-primary/50 font-medium hidden sm:block">
-                Your Journey Starts Here
-              </div>
-            </div>
+          <Link href="/" className="block relative h-12 sm:h-14 lg:h-16 w-44 sm:w-52 lg:w-60 group" aria-label="Xplorex home">
+            <Image
+              src="/assets/xplorex-logo.png"
+              alt="Xplorex"
+              fill
+              className="object-contain object-left group-hover:scale-105 transition-transform duration-300 drop-shadow-sm"
+              priority
+              sizes="(max-width: 640px) 176px, (max-width: 1024px) 208px, 240px"
+            />
           </Link>
 
           {/* Desktop nav */}

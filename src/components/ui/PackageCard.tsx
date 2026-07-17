@@ -29,61 +29,54 @@ const PackageCard = React.memo(function PackageCard({
       whileInView={{ opacity: 1, y: 0 }}
       viewport={{ once: true, margin: "-20px" }}
       transition={{ delay: (index % 3) * 0.05, duration: 0.35, ease: "easeOut" }}
-      className="group bg-white rounded-2xl sm:rounded-3xl overflow-hidden shadow-3d hover:shadow-3d-lg border border-primary/5 transition-all duration-300 transform-gpu"
+      className="group relative h-[400px] sm:h-[450px] lg:h-[480px] bg-neutral-900 rounded-xl overflow-hidden shadow-3d hover:shadow-3d-lg transition-all duration-300 transform-gpu"
     >
-      <Link href={`/destinations/${slug}`} className="block">
-        {/* Image */}
-        <div className="relative h-52 sm:h-60 overflow-hidden">
-          <Image
-            src={img}
-            alt={title}
-            fill
-            className="object-cover group-hover:scale-105 transition-transform duration-500"
-            sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw"
-            loading={index < 3 ? "eager" : "lazy"}
-          />
-          <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent" />
+      <Link href={`/destinations/${slug}`} className="block w-full h-full">
+        {/* Background Image */}
+        <Image
+          src={img}
+          alt={title}
+          fill
+          className="object-cover group-hover:scale-105 transition-transform duration-700"
+          sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw"
+          loading={index < 3 ? "eager" : "lazy"}
+        />
+        
+        {/* Gradient Overlay for bottom text */}
+        <div className="absolute inset-0 bg-gradient-to-t from-black via-black/40 to-transparent opacity-90 group-hover:opacity-100 transition-opacity duration-300" />
 
-          {/* Price badge */}
-          <div className="absolute top-3 right-3 bg-yellow-400 text-black font-bold px-3 py-1.5 rounded-xl shadow-lg text-sm leading-tight">
-            <p className="text-[9px] uppercase opacity-70 leading-none mb-0.5">From</p>
-            {price}
-          </div>
-
-          {/* Category badge */}
-          {category && (
-            <span className="absolute bottom-3 left-3 px-2.5 py-1 rounded-full bg-accent/90 text-white text-[10px] font-bold uppercase tracking-wide shadow">
-              {category}
-            </span>
-          )}
+        {/* Price Badge (Top Right) */}
+        <div className="absolute top-4 right-4 z-10 bg-yellow-400 text-black font-bold px-3 py-1 rounded-full shadow-lg text-xs flex items-center gap-1.5">
+          <span>{price}/- Onwards</span>
         </div>
 
-        {/* Body */}
-        <div className="p-5 sm:p-6">
-          <div className="flex items-center gap-3 mb-3 text-[11px] font-bold text-primary/40 uppercase tracking-tight">
-            <span className="flex items-center gap-1"><Clock className="w-3.5 h-3.5 text-accent" />{duration}</span>
-            <span className="w-1 h-1 rounded-full bg-primary/15" />
-            <span className="flex items-center gap-1"><MapPin className="w-3.5 h-3.5 text-accent" />{destination}</span>
-          </div>
-
-          <h3 className="font-display text-lg sm:text-xl font-bold text-primary mb-3 group-hover:text-accent transition-colors line-clamp-2 min-h-[3rem]">
+        {/* Content at Bottom */}
+        <div className="absolute bottom-0 left-0 w-full p-4 sm:p-5 text-white z-10 flex flex-col justify-end">
+          <h3 className="font-display text-base sm:text-lg font-bold leading-snug mb-3 line-clamp-2 text-white">
             {title}
           </h3>
 
-          <p className="text-sm text-primary/55 font-medium leading-relaxed line-clamp-2 mb-5">
-            {description}
-          </p>
-
-          <div className="flex items-center justify-between pt-4 border-t border-primary/5">
-            <span className="flex items-center gap-1 text-accent font-bold text-sm">
-              View Details
-              <ChevronRight className="w-4 h-4 group-hover:translate-x-0.5 transition-transform" />
-            </span>
-            {type && (
-              <span className="px-2.5 py-1 rounded-full bg-primary/5 text-primary/50 text-[10px] font-bold uppercase tracking-wide">
-                {type}
-              </span>
-            )}
+          <div className="flex flex-col gap-2.5 text-[11px] sm:text-xs font-bold text-white/90">
+            <div className="flex items-center justify-between w-full">
+              <div className="flex items-center gap-1.5">
+                <Clock className="w-3.5 h-3.5 text-[#00bcd4]" />
+                <span>{duration}</span>
+              </div>
+              <div className="flex items-center gap-1.5">
+                <MapPin className="w-3.5 h-3.5 text-[#00bcd4]" />
+                <span className="line-clamp-1 text-right">{destination}</span>
+              </div>
+            </div>
+            
+            <div className="flex items-center gap-1.5">
+              <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="text-[#00bcd4]">
+                <rect width="18" height="18" x="3" y="4" rx="2" ry="2"/>
+                <line x1="16" x2="16" y1="2" y2="6"/>
+                <line x1="8" x2="8" y1="2" y2="6"/>
+                <line x1="3" x2="21" y1="10" y2="10"/>
+              </svg>
+              <span>Upcoming Batches</span>
+            </div>
           </div>
         </div>
       </Link>

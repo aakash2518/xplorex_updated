@@ -7,6 +7,7 @@ export interface BlogPost {
   date: string;
   author: string;
   category: string;
+  readTime: number; // minutes
 }
 
 export const blogs: BlogPost[] = [
@@ -18,6 +19,7 @@ export const blogs: BlogPost[] = [
     date: "August 15, 2025",
     author: "Xplorex Team",
     category: "International",
+    readTime: 5,
     content: `
       <p>Want to find a cheap yet full of entertainment, cultural diversity, best entertainment, and attractions and view in a foreign country? The 7 nights Singapore-Malaysia tour package offered by India ticks all those boxes and many more. With an ideal mix of city vibes, theme parks, and historic sites, this package is a dream come true for Indian travelers.</p>
       
@@ -45,6 +47,7 @@ export const blogs: BlogPost[] = [
     date: "July 10, 2025",
     author: "Xplorex Team",
     category: "Domestic",
+    readTime: 4,
     content: `
       <p>The summer season in India is usually associated with extremely hot weather, congested travel destinations and a frantic hunt of relief points. Unlike a majority of the people who visit the more well-known destinations like Manali, Shimla, or Ooty, there are several hidden summer destinations in India that provide a quiet and refreshing experience.</p>
       
@@ -67,6 +70,7 @@ export const blogs: BlogPost[] = [
     date: "May 17, 2025",
     author: "Xplorex Team",
     category: "Travel Guide",
+    readTime: 6,
     content: `
       <p>India is one of the most diverse travel destinations in the world, offering everything from serene beaches and lush mountains to vibrant cities and cultural heritage sites. Whether you are planning a romantic escape, a family vacation, or an adventurous trip with friends, choosing the right domestic tour packages India is key to having a stress-free experience. In this guide, we’ll explore some of the best travel destinations in India for 2026 and why you should consider them for your next holiday.</p>
       

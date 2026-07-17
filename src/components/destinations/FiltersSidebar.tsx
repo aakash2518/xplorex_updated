@@ -42,7 +42,7 @@ export const FiltersSidebar = React.memo(function FiltersSidebar({
               Categories
             </p>
             <div className="space-y-3">
-              {["Group Tours", "Private Trips", "Honeymoon", "Luxury"].map((c) => (
+              {["Group Tours", "Private Trips", "Luxury"].map((c) => (
                 <label key={c} className="flex items-center gap-3 cursor-pointer group select-none">
                   <input
                     type="checkbox"

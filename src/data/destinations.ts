@@ -19,8 +19,11 @@ export type Destination = {
   highlights?: { heading: string; items: string[] }[];
   packages: Trip[];
   region: string; // India, International
+  tags?: string[];
   featured?: boolean;
   visaInfo?: string;
+  flag?: string;
+  visaStatus?: string;
   bestTime?: string;
   currency?: string;
 };
@@ -40,6 +43,9 @@ export const destinations: Destination[] = [
     bestTime: "April to October",
     currency: "Indonesian Rupiah",
     intro: ["Escape to the Island of the Gods with our exclusive Bali Tour Packages."],
+    tags: ["Southeast Asia"],
+    visaStatus: "Visa on Arrival",
+    flag: "🇮🇩",
     packages: [{ title: "Best of Bali Group Tour", duration: "9 Days", price: "₹65,000", description: "Romantic and adventurous escape.", img: "/assets/dest-bali.jpg", category: "Group", type: "Regular" }],
   },
   {
@@ -52,6 +58,9 @@ export const destinations: Destination[] = [
     region: "International",
     featured: true,
     intro: ["Experience luxury shopping and desert safaris."],
+    tags: ["Middle East"],
+    visaStatus: "E-Visa",
+    flag: "🇦🇪",
     packages: [{ title: "Dubai Luxury Experience", duration: "6 Days", price: "₹1,10,000", description: "Premium Dubai tour.", img: "/assets/dest-dubai.jpg", category: "Luxury", type: "Premium" }],
   },
   {
@@ -64,6 +73,9 @@ export const destinations: Destination[] = [
     region: "International",
     featured: true,
     intro: ["Endless white sand beaches and golden temples."],
+    tags: ["Southeast Asia"],
+    visaStatus: "Visa-Free",
+    flag: "🇹🇭",
     packages: [{ title: "Phuket & Krabi Beach Escape", duration: "6 Days", price: "₹32,000", description: "Island hopping tour.", img: "/assets/dest-thailand.jpg", category: "Group", type: "Budget" }],
   },
   {
@@ -76,6 +88,9 @@ export const destinations: Destination[] = [
     region: "International",
     featured: true,
     intro: ["Discover the natural beauty and rich history of Vietnam."],
+    tags: ["Southeast Asia"],
+    visaStatus: "E-Visa",
+    flag: "🇻🇳",
     packages: [{ title: "Vietnam Highlights", duration: "7 Days", price: "₹45,000", description: "Hanoi to Ho Chi Minh City.", img: "/assets/dest-vietnam.jpg", category: "Group", type: "Regular" }],
   },
   {
@@ -91,6 +106,9 @@ export const destinations: Destination[] = [
     bestTime: "May to October",
     currency: "Georgian Lari",
     intro: ["Explore the crossroads of Europe and Asia."],
+    tags: ["Central Asia"],
+    visaStatus: "E-Visa",
+    flag: "🇬🇪",
     packages: [{ title: "Tbilisi & Beyond", duration: "6 Days", price: "₹55,000", description: "Cultural tour of Georgia.", img: "/assets/dest-georgia.jpg", category: "Group", type: "Regular" }],
   },
   {
@@ -103,6 +121,9 @@ export const destinations: Destination[] = [
     region: "International",
     featured: true,
     intro: ["Tropical beaches and ancient ruins."],
+    tags: ["Asia-Pacific"],
+    visaStatus: "E-Visa",
+    flag: "🇱🇰",
     packages: [{ title: "Classic Sri Lanka", duration: "8 Days", price: "₹35,000", description: "Complete island tour.", img: "/assets/dest-srilanka.jpg", category: "Group", type: "Regular" }],
   },
   {
@@ -115,6 +136,9 @@ export const destinations: Destination[] = [
     region: "International",
     featured: true,
     intro: ["Tradition meets technology in Japan."],
+    tags: ["Asia-Pacific"],
+    visaStatus: "E-Visa",
+    flag: "🇯🇵",
     packages: [{ title: "Tokyo & Kyoto Explorer", duration: "7 Days", price: "₹1,20,000", description: "The best of Japan.", img: "/assets/dest-japan.png", category: "Group", type: "Luxury" }],
   },
   {
@@ -127,6 +151,9 @@ export const destinations: Destination[] = [
     region: "International",
     featured: true,
     intro: ["From Paris to Rome, explore the heart of Europe."],
+    tags: ["Europe"],
+    visaStatus: "Schengen Visa",
+    flag: "🇪🇺",
     packages: [{ title: "Paris, Swiss & Italy", duration: "10 Days", price: "₹1,85,000", description: "Most popular European combo.", img: "/assets/dest-europe.png", category: "Group", type: "Luxury" }],
   },
   
@@ -141,6 +168,8 @@ export const destinations: Destination[] = [
     region: "India",
     featured: true,
     intro: ["Experience the breathtaking beauty of Kashmir."],
+    tags: ["Himalaya","Mountains"],
+    bestTime: "Mar-Oct",
     packages: [{ title: "Srinagar & Gulmarg Special", duration: "6 Days", price: "₹25,000", description: "Complete Kashmir experience.", img: "/assets/trip-kashmir.png", category: "Group", type: "Regular" }],
   },
   {
@@ -153,6 +182,8 @@ export const destinations: Destination[] = [
     region: "India",
     featured: true,
     intro: ["Discover Kerala's backwaters and hill stations."],
+    tags: ["Beach","Heritage"],
+    bestTime: "Sep-Mar",
     packages: [{ title: "Munnar & Alleppey Houseboat", duration: "6 Days", price: "₹23,000", description: "Essential Kerala.", img: "/assets/dest-kerala.png", category: "Group", type: "Regular" }],
   },
   {
@@ -165,6 +196,8 @@ export const destinations: Destination[] = [
     region: "India",
     featured: true,
     intro: ["Pristine beaches and rich marine life."],
+    tags: ["Beach","Adventure"],
+    bestTime: "Oct-May",
     packages: [{ title: "Havelock & Neil Island", duration: "6 Days", price: "₹33,000", description: "Island hopping tour.", img: "/assets/dest-andaman.png", category: "Group", type: "Regular" }],
   },
   {
@@ -177,6 +210,8 @@ export const destinations: Destination[] = [
     region: "India",
     featured: true,
     intro: ["Experience royal heritage and palaces."],
+    tags: ["Desert","Heritage"],
+    bestTime: "Oct-Mar",
     packages: [{ title: "Jaipur, Jodhpur & Udaipur", duration: "8 Days", price: "₹28,000", description: "Royal heritage tour.", img: "/assets/dest-rajasthan.png", category: "Group", type: "Regular" }],
   },
   {
@@ -189,6 +224,9 @@ export const destinations: Destination[] = [
     region: "International",
     featured: true,
     intro: ["Experience the beauty of the Swiss Alps."],
+    tags: ["Europe"],
+    visaStatus: "Schengen Visa",
+    flag: "🇨🇭",
     packages: [{ title: "Swiss Alps & Lakes", duration: "7 Days", price: "₹1,95,000", description: "The ultimate Swiss experience.", img: "/assets/dest-switzerland.png", category: "Group", type: "Luxury" }],
   },
   {
@@ -201,6 +239,9 @@ export const destinations: Destination[] = [
     region: "International",
     featured: true,
     intro: ["From the Great Barrier Reef to Sydney."],
+    tags: ["Asia-Pacific"],
+    visaStatus: "E-Visa",
+    flag: "🇦🇺",
     packages: [{ title: "Sydney & Gold Coast", duration: "8 Days", price: "₹2,10,000", description: "Best of Australia.", img: "/assets/dest-australia.png", category: "Group", type: "Regular" }],
   },
   {
@@ -213,6 +254,9 @@ export const destinations: Destination[] = [
     region: "International",
     featured: true,
     intro: ["Explore the rich history and landscapes of Turkey."],
+    tags: ["Middle East"],
+    visaStatus: "E-Visa",
+    flag: "🇹🇷",
     packages: [{ title: "Cappadocia & Istanbul", duration: "7 Days", price: "₹85,000", description: "Magical Turkish journey.", img: "/assets/dest-turkey.png", category: "Group", type: "Regular" }],
   },
   {
@@ -225,6 +269,9 @@ export const destinations: Destination[] = [
     region: "International",
     featured: true,
     intro: ["Discover the wonders of Central Asia."],
+    tags: ["Central Asia"],
+    visaStatus: "Visa-Free",
+    flag: "🇰🇿",
     packages: [{ title: "Almaty City Break", duration: "5 Days", price: "₹45,000", description: "The modern face of Kazakhstan.", img: "/assets/dest-kazakhstan.jpg", category: "Group", type: "Budget" }],
   },
   {
@@ -237,6 +284,8 @@ export const destinations: Destination[] = [
     region: "India",
     featured: true,
     intro: ["Spiritual and adventurous escapes in the Himalayas."],
+    tags: ["Himalaya","Mountains"],
+    bestTime: "Mar-Jun",
     packages: [{ title: "Rishikesh & Mussoorie Special", duration: "5 Days", price: "₹15,000", description: "Adventure and peace.", img: "/assets/dest-uttarakhand.jpg", category: "Group", type: "Regular" }],
   },
   {
@@ -249,6 +298,8 @@ export const destinations: Destination[] = [
     region: "India",
     featured: false,
     intro: ["Explore the hidden gem of Northeast India."],
+    tags: ["Northeast","Mountains"],
+    bestTime: "Oct-Apr",
     packages: [{ title: "Tawang & Ziro Valley", duration: "8 Days", price: "₹32,000", description: "Northeast adventure.", img: "/assets/dest-arunachal.png", category: "Adventure", type: "Regular" }],
   },
   {
@@ -261,6 +312,8 @@ export const destinations: Destination[] = [
     region: "India",
     featured: false,
     intro: ["Experience the vibrant culture of Naga tribes."],
+    tags: ["Northeast","Heritage"],
+    bestTime: "Oct-May",
     packages: [{ title: "Hornbill Festival Tour", duration: "6 Days", price: "₹28,000", description: "Cultural extravaganza.", img: "/assets/dest-nagaland.png", category: "Group", type: "Regular" }],
   },
   {
@@ -273,6 +326,8 @@ export const destinations: Destination[] = [
     region: "India",
     featured: true,
     intro: ["Explore scenic hill stations and Himalayas."],
+    tags: ["Himalaya","Mountains"],
+    bestTime: "Mar-Jun",
     packages: [{ title: "Manali & Shimla Explorer", duration: "7 Days", price: "₹22,000", description: "Popular hill stations.", img: "/assets/dest-himachal-new.jpg", category: "Group", type: "Regular" }],
   },
   {
@@ -285,6 +340,8 @@ export const destinations: Destination[] = [
     region: "India",
     featured: true,
     intro: ["Discover the stark beauty of the cold desert."],
+    tags: ["Himalaya","Desert"],
+    bestTime: "May-Sep",
     packages: [{ title: "Leh, Nubra & Pangong", duration: "7 Days", price: "₹28,000", description: "Classic Ladakh itinerary.", img: "/assets/dest-ladakh.png", category: "Adventure", type: "Regular" }],
   },
   {
@@ -297,6 +354,8 @@ export const destinations: Destination[] = [
     region: "India",
     featured: true,
     intro: ["Experience the remote beauty of Spiti Valley."],
+    tags: ["Himalaya","Desert"],
+    bestTime: "May-Oct",
     packages: [{ title: "Spiti Valley Expedition", duration: "9 Days", price: "₹25,000", description: "Epic road trip.", img: "/assets/dest-spiti.png", category: "Adventure", type: "Regular" }],
   },
   {
@@ -309,6 +368,8 @@ export const destinations: Destination[] = [
     region: "India",
     featured: true,
     intro: ["Lush waterfalls and living root bridges."],
+    tags: ["Northeast","Mountains"],
+    bestTime: "Oct-Jun",
     packages: [{ title: "Cherrapunji & Shillong", duration: "6 Days", price: "₹22,000", description: "Wettest place on earth.", img: "/assets/dest-meghalaya.png", category: "Group", type: "Regular" }],
   },
   {
@@ -321,6 +382,8 @@ export const destinations: Destination[] = [
     region: "India",
     featured: false,
     intro: ["Buddhist monasteries and mountain views."],
+    tags: ["Northeast","Himalaya"],
+    bestTime: "Mar-May",
     packages: [{ title: "Gangtok & North Sikkim", duration: "6 Days", price: "₹24,000", description: "Complete Sikkim tour.", img: "/assets/dest-sikkim.png", category: "Group", type: "Regular" }],
   },
   {
@@ -333,6 +396,9 @@ export const destinations: Destination[] = [
     region: "International",
     featured: true,
     intro: ["Crystal clear waters and overwater villas."],
+    tags: ["Asia-Pacific"],
+    visaStatus: "Visa on Arrival",
+    flag: "🇲🇻",
     packages: [{ title: "Overwater Villa Experience", duration: "5 Days", price: "₹1,25,000", description: "Ultimate romance.", img: "/assets/dest-maldives.jpg", category: "Honeymoon", type: "Luxury" }],
   },
   {
@@ -345,6 +411,9 @@ export const destinations: Destination[] = [
     region: "International",
     featured: false,
     intro: ["Modern city-state with amazing food."],
+    tags: ["Southeast Asia"],
+    visaStatus: "E-Visa",
+    flag: "🇸🇬",
     packages: [{ title: "Singapore City & Sentosa", duration: "5 Days", price: "₹55,000", description: "Complete city tour.", img: "/assets/dest-singapore.jpg", category: "Group", type: "Regular" }],
   }
 

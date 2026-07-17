@@ -97,7 +97,7 @@ export const HAPPY_CUSTOMERS_MEDIA: MediaItem[] = [
   },
   {
     type: "video",
-    src: "/reviews/WhatsApp Video 2026-05-03 at 3.43.19 PM.mp4",
+    src: "/reviews/WhatsApp Video 2026-07-12 at 01.35.48.mp4",
     alt: "Customer video 1",
     size: "w-36 h-48 md:w-56 md:h-72",
     position: "top-[10%] left-[45%] md:top-[8%] md:left-[35%]",
@@ -115,7 +115,7 @@ export const HAPPY_CUSTOMERS_MEDIA: MediaItem[] = [
   },
   {
     type: "video",
-    src: "/reviews/WhatsApp Video 2026-05-03 at 3.44.41 PM.mp4",
+    src: "/reviews/WhatsApp Video 2026-07-12 at 01.35.08.mp4",
     alt: "Customer video 2",
     size: "w-40 h-52 md:w-60 md:h-80",
     position: "top-[15%] right-[5%] md:top-[15%] md:right-[10%]",
@@ -133,7 +133,7 @@ export const HAPPY_CUSTOMERS_MEDIA: MediaItem[] = [
   },
   {
     type: "video",
-    src: "/reviews/WhatsApp Video 2026-05-03 at 3.45.21 PM.mp4",
+    src: "/reviews/WhatsApp Video 2026-07-12 at 01.35.09.mp4",
     alt: "Customer video 3",
     size: "w-32 h-44 md:w-48 md:h-64",
     position: "bottom-[25%] right-[8%] md:bottom-[30%] md:right-[15%]",

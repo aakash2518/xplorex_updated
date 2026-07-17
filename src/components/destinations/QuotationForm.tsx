@@ -2,7 +2,7 @@
 
 import React, { useState, useCallback } from "react";
 import { motion } from "framer-motion";
-import { Plane, Loader2 } from "lucide-react";
+import { Plane, Loader2, ShieldCheck, Lock } from "lucide-react";
 import { sendWhatsAppEnquiry } from "@/services/api";
 import { vibrate } from "@/utils/helpers";
 import { FORM_OPTIONS } from "@/constants/theme";
@@ -176,10 +176,12 @@ export const QuotationForm = React.memo(function QuotationForm({
               />
             </div>
 
-            <button
+            <motion.button
               type="submit"
               disabled={pending}
-              className="w-full mt-4 bg-[#25D366] hover:bg-[#20c05c] active:scale-[0.96] disabled:opacity-75 disabled:scale-100 disabled:pointer-events-none text-white font-bold py-4.5 rounded-2xl shadow-lg transition-all flex items-center justify-center gap-3 text-lg touch-target"
+              whileHover={{ scale: pending ? 1 : 1.03, boxShadow: "0 10px 25px -5px rgba(37, 211, 102, 0.4)" }}
+              whileTap={{ scale: 0.98 }}
+              className="w-full mt-4 bg-[#25D366] hover:bg-[#20c05c] disabled:opacity-75 disabled:scale-100 disabled:pointer-events-none text-white font-bold py-4.5 rounded-2xl shadow-lg transition-all flex items-center justify-center gap-3 text-lg touch-target"
             >
               {pending ? (
                 <>
@@ -194,8 +196,22 @@ export const QuotationForm = React.memo(function QuotationForm({
                   Send on WhatsApp
                 </>
               )}
-            </button>
-            <p className="text-xs text-center text-primary/30 font-bold mt-4">⚡ Reply within 2 hours · Best Price Guaranteed</p>
+            </motion.button>
+
+            {/* Trust Strip */}
+            <div className="flex items-center justify-center gap-4 mt-2 pt-4 border-t border-primary/5">
+              <div className="flex items-center gap-1.5 text-primary/40">
+                <ShieldCheck className="w-4 h-4" />
+                <span className="text-[10px] font-bold uppercase tracking-wider">Razorpay Secure</span>
+              </div>
+              <div className="w-1 h-1 rounded-full bg-primary/10" />
+              <div className="flex items-center gap-1.5 text-primary/40">
+                <Lock className="w-4 h-4" />
+                <span className="text-[10px] font-bold uppercase tracking-wider">256-bit SSL</span>
+              </div>
+            </div>
+
+            <p className="text-xs text-center text-primary/30 font-bold mt-2">⚡ Reply within 2 hours · Best Price Guaranteed</p>
           </div>
         </motion.form>
       </div>

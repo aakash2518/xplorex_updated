@@ -5,6 +5,7 @@ import { Providers } from "@/components/Providers";
 import ClientDynamics from "@/components/ClientDynamics";
 import NextTopLoader from "nextjs-toploader";
 import { ErrorBoundary } from "@/components/ErrorBoundary";
+import IntroScreen from "@/components/IntroScreen";
 
 // Load fonts via next/font — zero layout shift, self-hosted automatically
 const jakarta = Plus_Jakarta_Sans({
@@ -66,13 +67,34 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
       className={`scroll-smooth ${jakarta.variable} ${grotesk.variable} ${caveat.variable}`}
     >
       <head>
-        {/* Preload above-the-fold hero image for best LCP */}
-        <link rel="preload" as="image" href="/assets/hero-travel.jpg" fetchPriority="high" />
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{
+            __html: JSON.stringify({
+              "@context": "https://schema.org",
+              "@type": "TravelAgency",
+              name: "Xplorex",
+              description: "Hand-crafted journeys across 12+ countries.",
+              url: "https://xplorex.com",
+              telephone: "+91-9876543210", // Note: fallback to placeholder since env/theme might not be in server component directly, but better to use CONTACT_INFO if available.
+              address: {
+                "@type": "PostalAddress",
+                streetAddress: "Mohan Cooperative Industrial Estate, Badarpur",
+                addressLocality: "New Delhi",
+                addressRegion: "Delhi",
+                postalCode: "110044",
+                addressCountry: "IN"
+              },
+              priceRange: "₹₹"
+            })
+          }}
+        />
       </head>
       <body className="bg-background min-h-screen antialiased">
         <NextTopLoader color="hsl(188 95% 45%)" showSpinner={false} />
         <ErrorBoundary>
           <Providers>
+            <IntroScreen />
             <ClientDynamics />
             {children}
           </Providers>
