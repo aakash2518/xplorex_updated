@@ -50,8 +50,6 @@ export interface EnquiryData {
 
 export interface SiteSettings {
   companyName: string;
-  adminName: string;
-  adminEmail: string;
   phone: string;
   whatsapp: string;
   bio: string;

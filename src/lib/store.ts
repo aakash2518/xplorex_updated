@@ -1,6 +1,6 @@
 /**
  * Xplorex Dynamic Data Store
- * Uses localStorage for persistence. All admin edits reflect on the public site.
+ * Uses localStorage for persistence. All edits reflect on the public site.
  */
 
 import { destinations as defaultDestinations, type Destination, type Trip } from "@/data/destinations";
@@ -10,8 +10,6 @@ import { destinations as defaultDestinations, type Destination, type Trip } from
 // ─── Site Settings ────────────────────────────────────────────────────────────
 export type SiteSettings = {
   companyName: string;
-  adminName: string;
-  adminEmail: string;
   phone: string;
   whatsapp: string;
   bio: string;
@@ -19,8 +17,6 @@ export type SiteSettings = {
 
 export const DEFAULT_SETTINGS: SiteSettings = {
   companyName: "Xplorex Travels",
-  adminName: "Admin",
-  adminEmail: "admin@xplorex.com",
   phone: "8447706518",
   whatsapp: "8447706518",
   bio: "Managing the future of travel.",
