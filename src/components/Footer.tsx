@@ -47,10 +47,10 @@ const Footer = () => (
     <div aria-hidden className="absolute -bottom-24 -left-24 w-72 h-72 bg-accent/10 rounded-full blur-3xl pointer-events-none" />
 
     <div className="container relative px-4 sm:px-6 lg:px-8">
-      <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-8 sm:gap-10 mb-10 sm:mb-14">
+      <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-8 sm:gap-10 mb-10 sm:mb-14">
 
         {/* Brand */}
-        <div className="col-span-2 md:col-span-1">
+        <div className="sm:col-span-2 md:col-span-1">
           <div className="relative h-14 sm:h-16 w-52 sm:w-60 mb-6 group">
             <Image 
               src="/assets/xplorex-logo.png" 

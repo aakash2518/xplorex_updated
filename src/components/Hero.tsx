@@ -39,7 +39,7 @@ const Hero = React.memo(function Hero() {
   return (
     <section
       id="home"
-      className="relative min-h-[80vh] md:min-h-screen flex items-center justify-center pt-20 pb-16"
+      className="relative min-h-[80vh] md:min-h-screen flex items-center justify-center pt-20 pb-40 sm:pb-16"
     >
       {/* Background Video */}
       <div className="absolute inset-0 z-0 overflow-hidden">
@@ -127,7 +127,7 @@ const Hero = React.memo(function Hero() {
           initial={{ opacity: 0, y: 32 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.6, delay: 0.6 }}
-          className="absolute -bottom-6 sm:-bottom-8 left-4 right-4 sm:left-6 sm:right-6 lg:left-8 lg:right-8 flex justify-center"
+          className="absolute -bottom-32 sm:-bottom-8 lg:-bottom-8 left-4 right-4 sm:left-6 sm:right-6 lg:left-8 lg:right-8 flex justify-center"
         >
           <HeroSearchBar />
         </motion.div>
