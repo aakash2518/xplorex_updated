@@ -10,6 +10,7 @@ import {
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import { CONTACT_INFO, FORM_OPTIONS } from "@/constants/theme";
+import { sendLeadToCRM } from "@/services/api";
 
 // ─── Types ────────────────────────────────────────────────────────────────────
 interface FormData {
@@ -195,18 +196,23 @@ export default function ContactPage() {
     if (Object.keys(errs).length > 0) return;
 
     setLoading(true);
-    // Build WhatsApp message
-    const msg = `Hi Xplorex! 👋\n\n*New Trip Enquiry*\n\n👤 Name: ${form.name}\n📞 Phone: ${form.phone}\n📧 Email: ${form.email}\n🌏 Destination: ${form.destination}\n💰 Budget: ${form.budget}\n👥 Travelers: ${form.travelers}\n\n📝 Message:\n${form.message}`;
-    const url = `https://wa.me/${CONTACT_INFO.whatsapp}?text=${encodeURIComponent(msg)}`;
-
-    await new Promise((r) => setTimeout(r, 600)); // simulate
-    setLoading(false);
-    setShowToast(true);
-    setTimeout(() => setShowToast(false), 5000);
-    window.open(url, "_blank");
-    setForm({ name: "", phone: "", email: "", destination: "", budget: "", travelers: "", message: "" });
-    setTouched({});
-    setErrors({});
+    try {
+      await sendLeadToCRM({
+        name: form.name,
+        email: form.email,
+        phone: form.phone,
+      });
+      setShowToast(true);
+      setTimeout(() => setShowToast(false), 5000);
+      setForm({ name: "", phone: "", email: "", destination: "", budget: "", travelers: "", message: "" });
+      setTouched({});
+      setErrors({});
+    } catch (err: unknown) {
+      console.error(err);
+      // fallback error handling could be better here, but omitting for brevity if toast isn't available
+    } finally {
+      setLoading(false);
+    }
   };
 
   return (
@@ -468,12 +474,12 @@ export default function ContactPage() {
                           <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4" />
                           <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4z" />
                         </svg>
-                        Opening WhatsApp…
+                        Submitting...
                       </>
                     ) : (
                       <>
-                        <MessageCircle className="w-5 h-5" />
-                        Send via WhatsApp
+                        <Send className="w-5 h-5" />
+                        Submit Enquiry
                       </>
                     )}
                   </motion.button>

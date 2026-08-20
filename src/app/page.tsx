@@ -34,7 +34,7 @@ export default function Home() {
       <RegionShowcase
         regionName="India Trips"
         subtitle="A Journey Through Time, Colour And Culture"
-        bgMedia="/assets/india-bg.mp4"
+        bgMedia="https://res.cloudinary.com/dwhphisiq/video/upload/f_auto,q_auto/v1/india-bg.mp4"
         exploreLink="/india-trips"
         destinations={indiaDestinations}
       />
@@ -42,7 +42,7 @@ export default function Home() {
       <RegionShowcase
         regionName="International Trips"
         subtitle="Discover the world, one destination at a time"
-        bgMedia="/assets/intl-bg.mp4"
+        bgMedia="https://res.cloudinary.com/dwhphisiq/video/upload/f_auto,q_auto/v1/intl-bg.mp4"
         exploreLink="/international-trips"
         destinations={intlDestinations}
       />

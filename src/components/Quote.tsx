@@ -18,6 +18,8 @@ import {
   Globe
 } from "lucide-react";
 import React, { useState } from "react";
+import { sendBookingRequestToCRM } from "@/services/api";
+import { toast } from "sonner";
 
 const WA_NUMBER = "918447706518"; // India country code + number
 
@@ -98,25 +100,58 @@ const Quote = () => {
     tripType: "Honeymoon",
     notes: "",
   });
+  const [pending, setPending] = useState(false);
 
-  const onSubmit = (e: React.FormEvent) => {
+  const onSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    const msg = [
-      `🌍 *Quote Request – Xplorex*`,
-      ``,
-      `👤 *Name:* ${form.name}`,
-      `📞 *Phone:* ${form.phone}`,
-      `📧 *Email:* ${form.email}`,
-      `📍 *Destination:* ${form.destination}`,
-      `💰 *Budget:* ${form.budget}`,
-      `📅 *Travel Date:* ${form.travelDate || "Not specified"}`,
-      `👥 *Travelers:* ${form.travelers}`,
-      `💼 *Trip Type:* ${form.tripType}`,
-      form.notes ? `📝 *Notes:* ${form.notes}` : "",
-      ``,
-      `_Sent from xplorex.com_`,
-    ].filter(Boolean).join("\n");
-    window.open(`https://wa.me/${WA_NUMBER}?text=${encodeURIComponent(msg)}`, '_blank');
+    if (!form.name.trim() || !form.phone.trim() || !form.email.trim()) {
+      toast.error("Please fill in your name, email and phone number.");
+      return;
+    }
+    setPending(true);
+    try {
+      await sendBookingRequestToCRM({
+        name: form.name,
+        email: form.email,
+        phone: form.phone,
+        destination: form.destination,
+        travelers: form.travelers.toString(),
+        month: form.travelDate,
+        notes: `Budget: ${form.budget} | Type: ${form.tripType} | Notes: ${form.notes}`,
+      });
+      toast.success("Booking request sent successfully! Redirecting to WhatsApp...");
+      
+      const message = `*New Quotation Request*
+*Name:* ${form.name}
+*Phone:* ${form.phone}
+*Email:* ${form.email}
+*Destination:* ${form.destination}
+*Budget:* ${form.budget}
+*Travel Date:* ${form.travelDate}
+*Travelers:* ${form.travelers}
+*Trip Type:* ${form.tripType}
+*Notes:* ${form.notes}`;
+
+      const whatsappUrl = `https://wa.me/${WA_NUMBER}?text=${encodeURIComponent(message)}`;
+      window.open(whatsappUrl, "_blank");
+
+      setForm({
+        name: "",
+        email: "",
+        phone: "",
+        destination: "Bali, Indonesia",
+        budget: "₹19k - ₹50k",
+        travelDate: "",
+        travelers: 2,
+        tripType: "Honeymoon",
+        notes: "",
+      });
+    } catch (err: unknown) {
+      const msg = err instanceof Error ? err.message : "Unknown error";
+      toast.error("Failed to send request: " + msg);
+    } finally {
+      setPending(false);
+    }
   };
 
   return (
@@ -349,10 +384,10 @@ const Quote = () => {
             <div className="mt-6">
               <button
                 type="submit"
-                className="w-full bg-[#22c55e] hover:bg-[#1abc54] active:scale-[0.98] text-white font-extrabold py-4 rounded-2xl shadow-lg transition-all flex items-center justify-center gap-2.5 text-base"
+                disabled={pending}
+                className="w-full bg-[#22c55e] hover:bg-[#1abc54] active:scale-[0.98] disabled:opacity-75 disabled:scale-100 disabled:pointer-events-none text-white font-extrabold py-4 rounded-2xl shadow-lg transition-all flex items-center justify-center gap-2.5 text-base"
               >
-                {WA_ICON}
-                Send on WhatsApp
+                {pending ? "Submitting..." : "Get a Free Quote"}
               </button>
               <p className="text-xs text-center text-slate-500 font-bold mt-3 flex items-center justify-center gap-1">
                 <span>⚡</span> Reply within 2 hours • No spam, ever.

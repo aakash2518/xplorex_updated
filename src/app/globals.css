@@ -50,6 +50,7 @@
     scroll-behavior: smooth;
     -webkit-text-size-adjust: 100%;
     text-size-adjust: 100%;
+    overflow-x: hidden;
   }
 
   body {
@@ -57,6 +58,7 @@
     font-family: var(--font-jakarta), system-ui, sans-serif;
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
+    overflow-x: hidden;
     /* NOTE: background-attachment:fixed removed — causes full repaint on scroll (kills mobile perf) */
     background-image:
       radial-gradient(ellipse at top, hsl(246 67% 55% / 0.04), transparent 60%),
@@ -99,9 +101,18 @@
     border: 1px solid hsl(246 67% 29% / 0.1);
   }
 
+  /* Hide scrollbar utility */
+  .no-scrollbar {
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+  }
+  .no-scrollbar::-webkit-scrollbar {
+    display: none;
+  }
+
   section {
     content-visibility: auto;
-    contain-intrinsic-size: 1px 800px;
+    contain-intrinsic-size: 1px 600px;
   }
 
   #home {
@@ -109,7 +120,7 @@
   }
 
   #testimonials {
-    contain-intrinsic-size: 1px 1200px; /* Tall section */
+    contain-intrinsic-size: 1px 800px; /* Tall section */
   }
 
   .shadow-3d-sm  { box-shadow: var(--shadow-3d-sm); }

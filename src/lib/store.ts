@@ -4,6 +4,7 @@
  */
 
 import { destinations as defaultDestinations, type Destination, type Trip } from "@/data/destinations";
+import { blogs as defaultBlogs, type BlogPost } from "@/data/blogs";
 
 
 
@@ -26,6 +27,7 @@ export const DEFAULT_SETTINGS: SiteSettings = {
 const KEYS = {
   destinations: "xplorex_destinations",
   settings: "xplorex_settings",
+  blogs: "xplorex_blogs",
 };
 
 // ─── Helpers ──────────────────────────────────────────────────────────────────
@@ -126,7 +128,35 @@ export function deleteTrip(destSlug: string, tripTitle: string): void {
   );
 }
 
+// ─── Blogs ────────────────────────────────────────────────────────────────────
+export function getBlogs(): BlogPost[] {
+  return read<BlogPost[]>(KEYS.blogs, defaultBlogs);
+}
 
+export function saveBlogs(data: BlogPost[]): void {
+  write(KEYS.blogs, data);
+}
+
+export function addBlog(blog: BlogPost): void {
+  const all = getBlogs();
+  write(KEYS.blogs, [...all, blog]);
+}
+
+export function updateBlog(slug: string, updates: Partial<BlogPost>): void {
+  const all = getBlogs();
+  write(
+    KEYS.blogs,
+    all.map((b) => (b.slug === slug ? { ...b, ...updates } : b))
+  );
+}
+
+export function deleteBlog(slug: string): void {
+  const all = getBlogs();
+  write(
+    KEYS.blogs,
+    all.filter((b) => b.slug !== slug)
+  );
+}
 
 // ─── Settings ─────────────────────────────────────────────────────────────────
 export function getSettings(): SiteSettings {

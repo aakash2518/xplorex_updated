@@ -36,31 +36,33 @@ export default function JourneyInFrames() {
   };
 
   return (
-    <section className="py-16 sm:py-24 bg-white overflow-hidden relative">
-      <div className="text-center mb-10 sm:mb-12">
-        <h2 className="text-3xl sm:text-4xl font-display font-bold text-gray-900 uppercase tracking-wide">
+    <section className="py-12 sm:py-16 sm:py-24 bg-white overflow-hidden relative">
+      <div className="text-center mb-8 sm:mb-10 sm:mb-12 px-4">
+        <h2 className="text-2xl sm:text-3xl sm:text-4xl font-display font-bold text-gray-900 uppercase tracking-wide">
           EXPLORE THE EXTRAORDINARY
         </h2>
-        <p className="text-gray-500 mt-2 font-medium">Discover breathtaking destinations and create unforgettable memories.</p>
+        <p className="text-gray-500 mt-2 font-medium text-sm sm:text-base">Discover breathtaking destinations and create unforgettable memories.</p>
       </div>
 
       <div className="w-[96%] max-w-[1800px] mx-auto relative group">
         {/* Scroll Buttons */}
         <button
           onClick={() => scroll("left")}
-          className="absolute left-0 sm:-left-5 top-1/2 -translate-y-1/2 z-20 w-10 h-10 sm:w-12 sm:h-12 rounded-full bg-[#00bcd4] shadow-xl text-white grid place-items-center opacity-0 group-hover:opacity-100 transition-all hover:bg-[#0097a7] hover:scale-105"
+          className="absolute left-2 sm:left-0 sm:-left-5 top-1/2 -translate-y-1/2 z-20 w-9 h-9 sm:w-12 sm:h-12 rounded-full bg-[#00bcd4] shadow-xl text-white grid place-items-center opacity-80 sm:opacity-0 group-hover:opacity-100 transition-all hover:bg-[#0097a7] hover:scale-105"
         >
-          <ChevronLeft className="w-6 h-6 sm:w-7 sm:h-7" />
+          <ChevronLeft className="w-5 h-5 sm:w-7 sm:h-7" />
         </button>
         <button
           onClick={() => scroll("right")}
-          className="absolute right-0 sm:-right-5 top-1/2 -translate-y-1/2 z-20 w-10 h-10 sm:w-12 sm:h-12 rounded-full bg-[#00bcd4] shadow-xl text-white grid place-items-center opacity-0 group-hover:opacity-100 transition-all hover:bg-[#0097a7] hover:scale-105"
+          className="absolute right-2 sm:right-0 sm:-right-5 top-1/2 -translate-y-1/2 z-20 w-9 h-9 sm:w-12 sm:h-12 rounded-full bg-[#00bcd4] shadow-xl text-white grid place-items-center opacity-80 sm:opacity-0 group-hover:opacity-100 transition-all hover:bg-[#0097a7] hover:scale-105"
         >
-          <ChevronRight className="w-6 h-6 sm:w-7 sm:h-7" />
+          <ChevronRight className="w-5 h-5 sm:w-7 sm:h-7" />
         </button>
 
-        {/* Carousel */}
-        <div className="relative overflow-hidden" style={{ clipPath: "ellipse(85% 50% at 50% 50%)" }}>
+        {/* Carousel - ellipse clip only on md+ screens */}
+        <div
+          className="relative overflow-hidden md:[clip-path:ellipse(85%_50%_at_50%_50%)]"
+        >
           <div
             ref={scrollRef}
             className="flex overflow-x-auto snap-x snap-mandatory no-scrollbar bg-gray-900"
@@ -69,20 +71,20 @@ export default function JourneyInFrames() {
             {frames.map((frame, i) => (
               <div
                 key={i}
-                className="snap-center shrink-0 relative w-[85vw] sm:w-[50vw] md:w-[33.33%] lg:w-[25%] aspect-[3/4] border-r-2 border-white last:border-0 group/frame"
+                className="snap-center shrink-0 relative w-[75vw] sm:w-[50vw] md:w-[33.33%] lg:w-[25%] aspect-[3/4] border-r-2 border-white last:border-0 group/frame"
               >
                 <Image
                   src={frame.src}
                   alt={frame.name}
                   fill
                   className="object-cover transition-transform duration-700 group-hover/frame:scale-110"
-                  sizes="(max-width: 768px) 85vw, (max-width: 1024px) 33vw, 25vw"
+                  sizes="(max-width: 640px) 75vw, (max-width: 1024px) 50vw, 25vw"
                 />
                 
                 {/* Location Chip */}
-                <div className="absolute bottom-6 left-6 z-10">
-                  <div className="flex items-center gap-1.5 bg-black/60 backdrop-blur-md px-3 py-1.5 rounded-full text-white text-sm font-semibold">
-                    <MapPin className="w-4 h-4" />
+                <div className="absolute bottom-4 sm:bottom-6 left-4 sm:left-6 z-10">
+                  <div className="flex items-center gap-1.5 bg-black/60 backdrop-blur-md px-2.5 sm:px-3 py-1 sm:py-1.5 rounded-full text-white text-xs sm:text-sm font-semibold">
+                    <MapPin className="w-3.5 h-3.5 sm:w-4 sm:h-4" />
                     {frame.name}
                   </div>
                 </div>

@@ -37,10 +37,10 @@ export default function RegionShowcase({
   const isVideo = bgMedia.endsWith(".mp4") || bgMedia.endsWith(".webm");
 
   return (
-    <section className="relative w-full pb-16 pt-8 bg-background">
+    <section className="relative w-full pb-12 sm:pb-16 pt-6 sm:pt-8 bg-background">
       <div className="w-[96%] max-w-[1800px] mx-auto">
         {/* Background Banner */}
-        <div className="relative w-full h-[400px] sm:h-[450px] lg:h-[500px] rounded-3xl overflow-hidden shadow-2xl">
+        <div className="relative w-full h-[300px] sm:h-[400px] lg:h-[500px] rounded-2xl sm:rounded-3xl overflow-hidden shadow-2xl">
           {isVideo ? (
             <video
               src={bgMedia}
@@ -64,12 +64,12 @@ export default function RegionShowcase({
           <div className="absolute inset-0 bg-gradient-to-r from-black/80 via-black/40 to-transparent" />
           
           {/* Content over banner */}
-          <div className="absolute inset-0 flex flex-col justify-center px-8 sm:px-12 lg:px-16 w-full max-w-3xl">
+          <div className="absolute inset-0 flex flex-col justify-center px-5 sm:px-8 lg:px-16 w-full max-w-3xl">
             <motion.h2 
               initial={{ opacity: 0, y: 20 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
-              className="text-4xl sm:text-5xl lg:text-6xl font-display font-bold text-white mb-3 drop-shadow-lg"
+              className="text-2xl sm:text-4xl lg:text-6xl font-display font-bold text-white mb-2 sm:mb-3 drop-shadow-lg"
             >
               {regionName}
             </motion.h2>
@@ -78,7 +78,7 @@ export default function RegionShowcase({
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
               transition={{ delay: 0.1 }}
-              className="text-white/90 text-sm sm:text-base font-medium mb-8 drop-shadow"
+              className="text-white/90 text-xs sm:text-sm md:text-base font-medium mb-5 sm:mb-8 drop-shadow"
             >
               {subtitle}
             </motion.p>
@@ -90,7 +90,7 @@ export default function RegionShowcase({
             >
               <Link 
                 href={exploreLink}
-                className="inline-block bg-accent hover:bg-[#ffe100] text-primary font-bold px-8 py-3 rounded-xl transition-all hover:scale-105 active:scale-95 shadow-lg"
+                className="inline-block bg-accent hover:bg-[#ffe100] text-primary font-bold px-5 sm:px-8 py-2.5 sm:py-3 rounded-xl text-sm sm:text-base transition-all hover:scale-105 active:scale-95 shadow-lg"
               >
                 Explore
               </Link>
@@ -99,32 +99,32 @@ export default function RegionShowcase({
         </div>
 
         {/* Overlapping Destination Cards */}
-        <div className="relative -mt-24 sm:-mt-32 z-10 px-4 sm:px-8">
+        <div className="relative -mt-16 sm:-mt-24 lg:-mt-32 z-10 px-2 sm:px-4 sm:px-8">
           <div className="relative group">
             {/* Scroll Buttons */}
             <button
               onClick={() => scroll("left")}
-              className="absolute -left-5 top-1/2 -translate-y-1/2 z-20 w-10 h-10 sm:w-12 sm:h-12 rounded-full bg-white/90 shadow-xl text-gray-700 grid place-items-center hover:bg-white hover:scale-105 transition-all"
+              className="absolute left-1 sm:-left-5 top-1/2 -translate-y-1/2 z-20 w-9 h-9 sm:w-12 sm:h-12 rounded-full bg-white/90 shadow-xl text-gray-700 grid place-items-center hover:bg-white hover:scale-105 transition-all"
             >
-              <ChevronLeft className="w-6 h-6 sm:w-7 sm:h-7" />
+              <ChevronLeft className="w-5 h-5 sm:w-7 sm:h-7" />
             </button>
             <button
               onClick={() => scroll("right")}
-              className="absolute -right-5 top-1/2 -translate-y-1/2 z-20 w-10 h-10 sm:w-12 sm:h-12 rounded-full bg-[#00bcd4] shadow-xl text-white grid place-items-center hover:bg-[#0097a7] hover:scale-105 transition-all"
+              className="absolute right-1 sm:-right-5 top-1/2 -translate-y-1/2 z-20 w-9 h-9 sm:w-12 sm:h-12 rounded-full bg-[#00bcd4] shadow-xl text-white grid place-items-center hover:bg-[#0097a7] hover:scale-105 transition-all"
             >
-              <ChevronRight className="w-6 h-6 sm:w-7 sm:h-7" />
+              <ChevronRight className="w-5 h-5 sm:w-7 sm:h-7" />
             </button>
 
             {/* Carousel Track */}
             <div
               ref={scrollRef}
-              className="flex gap-4 sm:gap-6 overflow-x-auto snap-x snap-mandatory pb-6 pt-4 no-scrollbar items-end"
+              className="flex gap-3 sm:gap-4 sm:gap-6 overflow-x-auto snap-x snap-mandatory pb-4 sm:pb-6 pt-3 sm:pt-4 no-scrollbar items-end"
               style={{ scrollbarWidth: "none" }}
             >
               {destinations.map((dest, i) => (
                 <div
                   key={dest.slug}
-                  className="snap-center shrink-0 w-[70vw] sm:w-[calc(50%-12px)] md:w-[calc(33.333%-16px)] lg:w-[calc(20%-19.2px)] relative rounded-2xl overflow-hidden shadow-2xl border-2 border-white bg-black group/card"
+                  className="snap-center shrink-0 w-[55vw] sm:w-[calc(50%-12px)] md:w-[calc(33.333%-16px)] lg:w-[calc(20%-19.2px)] relative rounded-xl sm:rounded-2xl overflow-hidden shadow-2xl border-2 border-white bg-black group/card"
                 >
                   <Link href={`/destinations/${dest.slug}`} className="block relative aspect-[3/4] w-full h-full">
                     <Image
@@ -132,15 +132,15 @@ export default function RegionShowcase({
                       alt={dest.name}
                       fill
                       className="object-cover transition-transform duration-700 group-hover/card:scale-110"
-                      sizes="(max-width: 768px) 70vw, (max-width: 1024px) 33vw, 20vw"
+                      sizes="(max-width: 640px) 55vw, (max-width: 768px) 50vw, (max-width: 1024px) 33vw, 20vw"
                     />
                     <div className="absolute inset-0 bg-gradient-to-t from-black/90 via-black/20 to-transparent" />
                     
-                    <div className="absolute bottom-0 left-0 right-0 p-5 text-center">
-                      <h3 className="text-white font-display font-bold text-2xl mb-1 drop-shadow-md">
+                    <div className="absolute bottom-0 left-0 right-0 p-3 sm:p-5 text-center">
+                      <h3 className="text-white font-display font-bold text-lg sm:text-2xl mb-1 drop-shadow-md">
                         {dest.name}
                       </h3>
-                      <p className="text-[11px] font-bold text-white/70 uppercase tracking-widest drop-shadow">
+                      <p className="text-[10px] sm:text-[11px] font-bold text-white/70 uppercase tracking-widest drop-shadow">
                         Starting Price {dest.from}
                       </p>
                     </div>

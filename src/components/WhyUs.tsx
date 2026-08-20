@@ -11,16 +11,16 @@ const features = [
 ];
 
 const WhyUs = () => (
-  <section id="why" className="py-16 sm:py-24 relative bg-background overflow-hidden">
+  <section id="why" className="py-12 sm:py-16 sm:py-24 relative bg-background overflow-hidden">
     <div className="w-[96%] max-w-[1800px] mx-auto relative z-10 px-4 sm:px-8">
       
-      <div className="text-center mb-10 sm:mb-16">
-        <h2 className="font-display text-3xl sm:text-4xl font-bold text-primary">
+      <div className="text-center mb-8 sm:mb-10 sm:mb-16">
+        <h2 className="font-display text-2xl sm:text-3xl sm:text-4xl font-bold text-primary">
           Why Xplorex?
         </h2>
       </div>
 
-      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 sm:gap-6">
         {features.map((f, i) => (
           <motion.div
             key={f.title}
@@ -28,7 +28,7 @@ const WhyUs = () => (
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
             transition={{ delay: i * 0.1, duration: 0.5 }}
-            className="group relative bg-white rounded-2xl p-6 sm:p-8 border border-[#00bcd4]/30 shadow-sm hover:shadow-xl transition-all duration-300 min-h-[400px] flex flex-col justify-between overflow-hidden"
+            className="group relative bg-white rounded-2xl p-5 sm:p-6 sm:p-8 border border-[#00bcd4]/30 shadow-sm hover:shadow-xl transition-all duration-300 min-h-[280px] sm:min-h-[340px] lg:min-h-[400px] flex flex-col justify-between overflow-hidden"
           >
             {/* Decorative background curve */}
             <div className="absolute inset-0 pointer-events-none opacity-30">
@@ -40,14 +40,14 @@ const WhyUs = () => (
 
             {/* Content Top */}
             <div className="relative z-10">
-              <h3 className="font-display text-2xl sm:text-3xl font-bold text-[#00bcd4] mb-4 leading-tight">{f.title}</h3>
-              <p className="text-base text-primary/75 leading-relaxed font-medium">{f.desc}</p>
+              <h3 className="font-display text-xl sm:text-2xl sm:text-3xl font-bold text-[#00bcd4] mb-3 sm:mb-4 leading-tight">{f.title}</h3>
+              <p className="text-sm sm:text-base text-primary/75 leading-relaxed font-medium">{f.desc}</p>
             </div>
 
             {/* Icon Bottom */}
-            <div className="relative z-10 mt-8 self-center">
-               <div className="w-[6rem] h-[6rem] flex items-center justify-center bg-white rounded-full">
-                 <f.icon className="w-16 h-16 text-[#00bcd4]" strokeWidth={1.2} />
+            <div className="relative z-10 mt-6 sm:mt-8 self-center">
+               <div className="w-[4.5rem] h-[4.5rem] sm:w-[6rem] sm:h-[6rem] flex items-center justify-center bg-white rounded-full">
+                 <f.icon className="w-12 h-12 sm:w-16 sm:h-16 text-[#00bcd4]" strokeWidth={1.2} />
                </div>
                
                {/* Decorative dots */}

@@ -78,83 +78,38 @@ export interface MediaItem {
 
 export const HAPPY_CUSTOMERS_MEDIA: MediaItem[] = [
   {
-    type: "image",
-    src: "/reviews/WhatsApp Image 2026-05-03 at 3.44.39 PM (1).jpeg",
-    alt: "Happy customer 1",
-    size: "w-32 h-40 md:w-48 md:h-60",
-    position: "top-[5%] left-[5%] md:top-[10%] md:left-[8%]",
-    floatClass: "float-css-0",
-    rotate: -5
-  },
-  {
-    type: "image",
-    src: "/reviews/WhatsApp Image 2026-05-03 at 3.44.39 PM.jpeg",
-    alt: "Happy customer 2",
-    size: "w-28 h-36 md:w-40 md:h-52",
-    position: "top-[25%] left-[15%] md:top-[15%] md:left-[22%]",
-    floatClass: "float-css-1",
-    rotate: 3
-  },
-  {
     type: "video",
     src: "/reviews/WhatsApp Video 2026-07-12 at 01.35.48.mp4",
     alt: "Customer video 1",
     size: "w-36 h-48 md:w-56 md:h-72",
-    position: "top-[10%] left-[45%] md:top-[8%] md:left-[35%]",
+    position: "top-[10%] right-[20%] md:top-[5%] md:right-[28%]",
     floatClass: "float-css-2",
     rotate: -2
-  },
-  {
-    type: "image",
-    src: "/reviews/WhatsApp Image 2026-05-03 at 3.51.27 PM (1).jpeg",
-    alt: "Happy customer 3",
-    size: "w-32 h-40 md:w-44 md:h-56",
-    position: "top-[5%] right-[25%] md:top-[12%] md:right-[30%]",
-    floatClass: "float-css-3",
-    rotate: 4
   },
   {
     type: "video",
     src: "/reviews/WhatsApp Video 2026-07-12 at 01.35.08.mp4",
     alt: "Customer video 2",
     size: "w-40 h-52 md:w-60 md:h-80",
-    position: "top-[15%] right-[5%] md:top-[15%] md:right-[10%]",
+    position: "top-[10%] right-[2%] md:top-[12%] md:right-[5%]",
     floatClass: "float-css-4",
     rotate: -4
-  },
-  {
-    type: "image",
-    src: "/reviews/WhatsApp Image 2026-05-03 at 3.51.27 PM (2).jpeg",
-    alt: "Happy customer 4",
-    size: "w-24 h-32 md:w-36 md:h-48",
-    position: "bottom-[15%] left-[5%] md:bottom-[20%] md:left-[12%]",
-    floatClass: "float-css-5",
-    rotate: 6
   },
   {
     type: "video",
     src: "/reviews/WhatsApp Video 2026-07-12 at 01.35.09.mp4",
     alt: "Customer video 3",
     size: "w-32 h-44 md:w-48 md:h-64",
-    position: "bottom-[25%] right-[8%] md:bottom-[30%] md:right-[15%]",
+    position: "bottom-[35%] right-[5%] md:top-[45%] md:right-[8%]",
     floatClass: "float-css-6",
     rotate: -3
-  },
-  {
-    type: "image",
-    src: "/reviews/WhatsApp Image 2026-05-03 at 3.51.27 PM.jpeg",
-    alt: "Happy customer 5",
-    size: "w-28 h-36 md:w-40 md:h-52",
-    position: "bottom-[40%] left-[2%] md:top-[45%] md:left-[5%]",
-    floatClass: "float-css-7",
-    rotate: -2
   },
   {
     type: "video",
     src: "/reviews/WhatsApp Video 2026-05-03 at 3.50.13 PM (1).mp4",
     alt: "Customer video 4",
     size: "w-24 h-32 md:w-32 md:h-44",
-    position: "bottom-[5%] left-[30%] md:bottom-[10%] md:left-[25%]",
+    position: "bottom-[5%] left-[25%] md:bottom-[8%] md:left-[28%]",
     floatClass: "float-css-8",
     rotate: 5
   },
@@ -163,8 +118,9 @@ export const HAPPY_CUSTOMERS_MEDIA: MediaItem[] = [
     src: "/reviews/WhatsApp Video 2026-05-03 at 3.50.13 PM (2).mp4",
     alt: "Customer video 5",
     size: "w-28 h-36 md:w-40 md:h-52",
-    position: "bottom-[5%] right-[30%] md:bottom-[8%] md:right-[35%]",
+    position: "bottom-[5%] right-[25%] md:bottom-[8%] md:right-[28%]",
     floatClass: "float-css-9",
     rotate: -5
   }
 ];
+
