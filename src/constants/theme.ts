@@ -79,48 +79,57 @@ export interface MediaItem {
 export const HAPPY_CUSTOMERS_MEDIA: MediaItem[] = [
   {
     type: "video",
-    src: "/reviews/WhatsApp Video 2026-07-12 at 01.35.48.mp4",
-    alt: "Customer video 1",
-    size: "w-36 h-48 md:w-56 md:h-72",
-    position: "top-[10%] right-[20%] md:top-[5%] md:right-[28%]",
-    floatClass: "float-css-2",
-    rotate: -2
+    src: "https://res.cloudinary.com/dwhphisiq/video/upload/f_auto,q_auto/v1/WhatsApp_Video_2026-07-12_at_01.35.48.mp4",
+    alt: "Customer review 1",
+    size: "w-full h-full", position: "", floatClass: "", rotate: 0
   },
   {
     type: "video",
-    src: "/reviews/WhatsApp Video 2026-07-12 at 01.35.08.mp4",
-    alt: "Customer video 2",
-    size: "w-40 h-52 md:w-60 md:h-80",
-    position: "top-[10%] right-[2%] md:top-[12%] md:right-[5%]",
-    floatClass: "float-css-4",
-    rotate: -4
+    src: "https://res.cloudinary.com/dwhphisiq/video/upload/f_auto,q_auto/v1787241575/WhatsApp_Video_2026-07-12_at_01.35.09.mp4",
+    alt: "Customer review 2",
+    size: "w-full h-full", position: "", floatClass: "", rotate: 0
   },
   {
     type: "video",
-    src: "/reviews/WhatsApp Video 2026-07-12 at 01.35.09.mp4",
-    alt: "Customer video 3",
-    size: "w-32 h-44 md:w-48 md:h-64",
-    position: "bottom-[35%] right-[5%] md:top-[45%] md:right-[8%]",
-    floatClass: "float-css-6",
-    rotate: -3
+    src: "https://res.cloudinary.com/dwhphisiq/video/upload/f_auto,q_auto/v1787241583/WhatsApp_Video_2026-05-03_at_3.50.14_PM.mp4",
+    alt: "Customer review 3",
+    size: "w-full h-full", position: "", floatClass: "", rotate: 0
   },
   {
     type: "video",
-    src: "/reviews/WhatsApp Video 2026-05-03 at 3.50.13 PM (1).mp4",
-    alt: "Customer video 4",
-    size: "w-24 h-32 md:w-32 md:h-44",
-    position: "bottom-[5%] left-[25%] md:bottom-[8%] md:left-[28%]",
-    floatClass: "float-css-8",
-    rotate: 5
+    src: "https://res.cloudinary.com/dwhphisiq/video/upload/f_auto,q_auto/v1787241586/WhatsApp_Video_2026-07-12_at_01.35.08.mp4",
+    alt: "Customer review 4",
+    size: "w-full h-full", position: "", floatClass: "", rotate: 0
   },
   {
     type: "video",
-    src: "/reviews/WhatsApp Video 2026-05-03 at 3.50.13 PM (2).mp4",
-    alt: "Customer video 5",
-    size: "w-28 h-36 md:w-40 md:h-52",
-    position: "bottom-[5%] right-[25%] md:bottom-[8%] md:right-[28%]",
-    floatClass: "float-css-9",
-    rotate: -5
+    src: "https://res.cloudinary.com/dwhphisiq/video/upload/f_auto,q_auto/v1787241592/WhatsApp_Video_2026-05-03_at_3.50.14_PM_2.mp4",
+    alt: "Customer review 5",
+    size: "w-full h-full", position: "", floatClass: "", rotate: 0
+  },
+  {
+    type: "video",
+    src: "https://res.cloudinary.com/dwhphisiq/video/upload/f_auto,q_auto/v1787241596/WhatsApp_Video_2026-05-03_at_3.50.14_PM_3.mp4",
+    alt: "Customer review 6",
+    size: "w-full h-full", position: "", floatClass: "", rotate: 0
+  },
+  {
+    type: "video",
+    src: "https://res.cloudinary.com/dwhphisiq/video/upload/f_auto,q_auto/v1787241600/WhatsApp_Video_2026-05-03_at_3.50.13_PM.mp4",
+    alt: "Customer review 7",
+    size: "w-full h-full", position: "", floatClass: "", rotate: 0
+  },
+  {
+    type: "video",
+    src: "https://res.cloudinary.com/dwhphisiq/video/upload/f_auto,q_auto/v1787241610/WhatsApp_Video_2026-05-03_at_3.50.13_PM_2.mp4",
+    alt: "Customer review 8",
+    size: "w-full h-full", position: "", floatClass: "", rotate: 0
+  },
+  {
+    type: "video",
+    src: "https://res.cloudinary.com/dwhphisiq/video/upload/f_auto,q_auto/v1787241667/WhatsApp_Video_2026-05-03_at_3.44.41_PM.mp4",
+    alt: "Customer review 9",
+    size: "w-full h-full", position: "", floatClass: "", rotate: 0
   }
 ];
 
