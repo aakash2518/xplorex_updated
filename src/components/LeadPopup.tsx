@@ -3,7 +3,7 @@
 import React, { useEffect, useState, useCallback } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { X, MapPin, Calendar, User, Phone, Plane, Loader2, Send } from "lucide-react";
-import { FORM_OPTIONS } from "@/constants/theme";
+import { FORM_OPTIONS, CONTACT_INFO } from "@/constants/theme";
 import { sendLeadToCRM } from "@/services/api";
 import { vibrate } from "@/utils/helpers";
 import { toast } from "sonner";
@@ -72,23 +72,46 @@ export const LeadPopup = React.memo(function LeadPopup() {
       }
 
       setPending(true);
-      try {
-        await sendLeadToCRM({
-          name: form.name,
-          phone: form.phone,
-          destination: form.destination || "Any",
-          month: form.month || "Any",
-          travelers: form.travelers || "Any"
-        });
-        toast.success("Quote request sent successfully!");
-        setForm({ name: "", phone: "", destination: "", month: "", travelers: "" });
-      } catch (err: unknown) {
-        const msg = err instanceof Error ? err.message : "Unknown error";
-        toast.error("Failed to send request: " + msg);
-      } finally {
-        setOpen(false);
-        setPending(false);
+
+      const message = [
+        "*━━━━━━━━━━━━━━━━━━━━*",
+        "*\u2708\uFE0F  XPLOREX HOLIDAYS | ENQUIRY*",
+        "*━━━━━━━━━━━━━━━━━━━━*",
+        "",
+        `\u{1F464} *Customer Name:* ${form.name.trim()}`,
+        `\u{1F4DE} *Phone Number:* ${form.phone.trim()}`,
+        `\u{1F4CD} *Destination:* ${form.destination || "Not decided"}`,
+        `\u{1F5D3}\uFE0F *Travel Month:* ${form.month || "Flexible"}`,
+        `\u{1F465} *Travelers:* ${form.travelers || "Not specified"}`,
+        "",
+        "────────────────────",
+        "\u{1F4AC} *Requirement:* Customized Holiday Package",
+        "\u{1F310} *Source:* Website Popup (xplorex.in)",
+        "*━━━━━━━━━━━━━━━━━━━━*",
+      ].join("\n");
+
+      const waNumber = CONTACT_INFO.whatsapp || "918447706518";
+      const whatsappUrl = `https://wa.me/${waNumber}?text=${encodeURIComponent(message)}`;
+
+      // Send to CRM in background without blocking WhatsApp redirection
+      sendLeadToCRM({
+        name: form.name.trim(),
+        phone: form.phone.trim(),
+        destination: form.destination || "Any",
+        month: form.month || "Any",
+        travelers: form.travelers || "Any",
+      }).catch((err) => console.warn("CRM sync skipped:", err));
+
+      toast.success("Quote request submitted! Opening WhatsApp...");
+
+      const win = window.open(whatsappUrl, "_blank");
+      if (!win || win.closed || typeof win.closed === "undefined") {
+        window.location.href = whatsappUrl;
       }
+
+      setForm({ name: "", phone: "", destination: "", month: "", travelers: "" });
+      setOpen(false);
+      setPending(false);
     },
     [form]
   );

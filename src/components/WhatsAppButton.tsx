@@ -5,7 +5,7 @@ import { motion } from "framer-motion";
 import { MessageCircle } from "lucide-react";
 
 export default function WhatsAppButton() {
-  const phoneNumber = "+9184487706518"; // Using one of the phone numbers from footer
+  const phoneNumber = "+918447706518";
   const message = "Hello, I would like to know more about your travel packages.";
   const href = `https://wa.me/${phoneNumber.replace(/[^0-9]/g, "")}?text=${encodeURIComponent(message)}`;
 

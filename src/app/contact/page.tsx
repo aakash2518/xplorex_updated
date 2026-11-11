@@ -196,23 +196,50 @@ export default function ContactPage() {
     if (Object.keys(errs).length > 0) return;
 
     setLoading(true);
-    try {
-      await sendLeadToCRM({
-        name: form.name,
-        email: form.email,
-        phone: form.phone,
-      });
-      setShowToast(true);
-      setTimeout(() => setShowToast(false), 5000);
-      setForm({ name: "", phone: "", email: "", destination: "", budget: "", travelers: "", message: "" });
-      setTouched({});
-      setErrors({});
-    } catch (err: unknown) {
-      console.error(err);
-      // fallback error handling could be better here, but omitting for brevity if toast isn't available
-    } finally {
-      setLoading(false);
+
+    const message = [
+      "*━━━━━━━━━━━━━━━━━━━━*",
+      "*\u2708\uFE0F  XPLOREX HOLIDAYS | CONTACT ENQUIRY*",
+      "*━━━━━━━━━━━━━━━━━━━━*",
+      "",
+      `\u{1F464} *Customer Name:* ${form.name.trim()}`,
+      `\u{1F4DE} *Phone Number:* ${form.phone.trim()}`,
+      `\u{1F4E7} *Email ID:* ${form.email.trim()}`,
+      `\u{1F4CD} *Destination:* ${form.destination}`,
+      `\u{1F4B0} *Estimated Budget:* ${form.budget}`,
+      `\u{1F465} *No. of Travelers:* ${form.travelers}`,
+      ...(form.message.trim() ? [`\u{1F4AC} *Customer Message:* ${form.message.trim()}`] : []),
+      "",
+      "────────────────────",
+      "\u{1F310} *Source:* Contact Us Page (xplorex.in)",
+      "*━━━━━━━━━━━━━━━━━━━━*",
+    ].join("\n");
+
+    const waNumber = CONTACT_INFO.whatsapp || "918447706518";
+    const whatsappUrl = `https://wa.me/${waNumber}?text=${encodeURIComponent(message)}`;
+
+    // Sync with CRM in background
+    sendLeadToCRM({
+      name: form.name.trim(),
+      email: form.email.trim(),
+      phone: form.phone.trim(),
+      destination: form.destination,
+      travelers: form.travelers,
+      notes: `Budget: ${form.budget} | Message: ${form.message}`,
+    }).catch((err) => console.warn("CRM sync skipped:", err));
+
+    setShowToast(true);
+    setTimeout(() => setShowToast(false), 5000);
+
+    const win = window.open(whatsappUrl, "_blank");
+    if (!win || win.closed || typeof win.closed === "undefined") {
+      window.location.href = whatsappUrl;
     }
+
+    setForm({ name: "", phone: "", email: "", destination: "", budget: "", travelers: "", message: "" });
+    setTouched({});
+    setErrors({});
+    setLoading(false);
   };
 
   return (

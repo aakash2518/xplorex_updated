@@ -109,49 +109,60 @@ const Quote = () => {
       return;
     }
     setPending(true);
-    try {
-      await sendBookingRequestToCRM({
-        name: form.name,
-        email: form.email,
-        phone: form.phone,
-        destination: form.destination,
-        travelers: form.travelers.toString(),
-        month: form.travelDate,
-        notes: `Budget: ${form.budget} | Type: ${form.tripType} | Notes: ${form.notes}`,
-      });
-      toast.success("Booking request sent successfully! Redirecting to WhatsApp...");
-      
-      const message = `*New Quotation Request*
-*Name:* ${form.name}
-*Phone:* ${form.phone}
-*Email:* ${form.email}
-*Destination:* ${form.destination}
-*Budget:* ${form.budget}
-*Travel Date:* ${form.travelDate}
-*Travelers:* ${form.travelers}
-*Trip Type:* ${form.tripType}
-*Notes:* ${form.notes}`;
 
-      const whatsappUrl = `https://wa.me/${WA_NUMBER}?text=${encodeURIComponent(message)}`;
-      window.open(whatsappUrl, "_blank");
+    const message = [
+      "*━━━━━━━━━━━━━━━━━━━━*",
+      "*\u2708\uFE0F  XPLOREX HOLIDAYS | QUOTE REQUEST*",
+      "*━━━━━━━━━━━━━━━━━━━━*",
+      "",
+      `\u{1F464} *Customer Name:* ${form.name.trim()}`,
+      `\u{1F4DE} *Phone Number:* ${form.phone.trim()}`,
+      `\u{1F4E7} *Email ID:* ${form.email.trim()}`,
+      `\u{1F4CD} *Destination:* ${form.destination}`,
+      `\u{1F4B0} *Budget (Per Person):* ${form.budget}`,
+      `\u{1F5D3}\uFE0F *Travel Date:* ${form.travelDate || "Flexible"}`,
+      `\u{1F465} *Travelers:* ${form.travelers}`,
+      `\u{1F392} *Trip Type:* ${form.tripType}`,
+      ...(form.notes.trim() ? [`\u{1F4DD} *Special Request:* ${form.notes.trim()}`] : []),
+      "",
+      "────────────────────",
+      "\u26A1 *Status:* Priority Custom Itinerary",
+      "\u{1F310} *Source:* Request Quotation Form (xplorex.in)",
+      "*━━━━━━━━━━━━━━━━━━━━*",
+    ].join("\n");
 
-      setForm({
-        name: "",
-        email: "",
-        phone: "",
-        destination: "Bali, Indonesia",
-        budget: "₹19k - ₹50k",
-        travelDate: "",
-        travelers: 2,
-        tripType: "Honeymoon",
-        notes: "",
-      });
-    } catch (err: unknown) {
-      const msg = err instanceof Error ? err.message : "Unknown error";
-      toast.error("Failed to send request: " + msg);
-    } finally {
-      setPending(false);
+    const whatsappUrl = `https://wa.me/${WA_NUMBER}?text=${encodeURIComponent(message)}`;
+
+    // Sync with CRM in background without blocking WhatsApp redirection
+    sendBookingRequestToCRM({
+      name: form.name.trim(),
+      email: form.email.trim(),
+      phone: form.phone.trim(),
+      destination: form.destination,
+      travelers: form.travelers.toString(),
+      month: form.travelDate,
+      notes: `Budget: ${form.budget} | Type: ${form.tripType} | Notes: ${form.notes}`,
+    }).catch((err) => console.warn("CRM sync skipped:", err));
+
+    toast.success("Quote request submitted! Opening WhatsApp...");
+
+    const win = window.open(whatsappUrl, "_blank");
+    if (!win || win.closed || typeof win.closed === "undefined") {
+      window.location.href = whatsappUrl;
     }
+
+    setForm({
+      name: "",
+      email: "",
+      phone: "",
+      destination: "Bali, Indonesia",
+      budget: "₹19k - ₹50k",
+      travelDate: "",
+      travelers: 2,
+      tripType: "Honeymoon",
+      notes: "",
+    });
+    setPending(false);
   };
 
   return (

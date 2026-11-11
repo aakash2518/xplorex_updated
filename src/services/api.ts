@@ -16,48 +16,50 @@ export interface EnquiryData {
  * Formats a clean, readable text template for WhatsApp.
  */
 export function formatWhatsAppMessage(data: EnquiryData, type: "quote" | "lead" | "contact"): string {
-  const title = type === "quote"
-    ? `🌍 *Quote Request – Xplorex*`
+  const header = type === "quote"
+    ? "*\u2708\uFE0F  XPLOREX HOLIDAYS | QUOTE REQUEST*"
     : type === "lead"
-      ? `🌍 *New Trip Enquiry – Xplorex*`
-      : `📩 *Contact Message – Xplorex*`;
+      ? "*\u2708\uFE0F  XPLOREX HOLIDAYS | ENQUIRY*"
+      : "*\u2708\uFE0F  XPLOREX HOLIDAYS | CONTACT MESSAGE*";
 
   const lines: string[] = [
-    title,
+    "*━━━━━━━━━━━━━━━━━━━━*",
+    header,
+    "*━━━━━━━━━━━━━━━━━━━━*",
     "",
-    `👤 *Name:* ${data.name}`,
-    `📞 *Phone:* ${data.phone}`,
+    `\u{1F464} *Customer Name:* ${data.name}`,
+    `\u{1F4DE} *Phone Number:* ${data.phone}`,
   ];
 
   if (data.email) {
-    lines.push(`📧 *Email:* ${data.email}`);
+    lines.push(`\u{1F4E7} *Email ID:* ${data.email}`);
   }
 
   if (data.destination) {
-    lines.push(`📍 *Destination:* ${data.destination}`);
+    lines.push(`\u{1F4CD} *Destination:* ${data.destination}`);
   }
 
   if (data.month) {
-    lines.push(`📅 *Travel Month:* ${data.month}`);
+    lines.push(`\u{1F5D3}\uFE0F *Travel Month / Date:* ${data.month}`);
   }
 
   if (data.travelers) {
-    lines.push(`👥 *Travelers:* ${data.travelers}`);
+    lines.push(`\u{1F465} *Travelers:* ${data.travelers}`);
   }
 
   if (data.budget) {
-    lines.push(`💰 *Budget:* ${data.budget}`);
+    lines.push(`\u{1F4B0} *Budget:* ${data.budget}`);
   }
 
   if (data.subject) {
-    lines.push(`📋 *Subject:* ${data.subject}`);
+    lines.push(`\u{1F4CB} *Subject:* ${data.subject}`);
   }
 
   if (data.notes) {
-    lines.push(type === "contact" ? `💬 *Message:* ${data.notes}` : `📝 *Notes:* ${data.notes}`);
+    lines.push(type === "contact" ? `\u{1F4AC} *Message:* ${data.notes}` : `\u{1F4DD} *Notes:* ${data.notes}`);
   }
 
-  lines.push("", `_Sent from xplorex.com_`);
+  lines.push("", "────────────────────", "\u{1F310} *Source:* xplorex.in", "*━━━━━━━━━━━━━━━━━━━━*");
 
   return lines.join("\n");
 }

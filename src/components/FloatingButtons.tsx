@@ -6,7 +6,7 @@ import { useState } from "react";
 import { useSettings } from "@/lib/useStore";
 
 const DEFAULT_PHONE = "8447706518";
-const DEFAULT_WA = "8447706518";
+const DEFAULT_WA = "918447706518";
 const WA_MSG = encodeURIComponent("Hi! I'm interested in a trip package. Please help me plan my trip. 🌍");
 
 export default function FloatingButtons() {
